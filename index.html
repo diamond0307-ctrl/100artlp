@@ -605,62 +605,6 @@ a{color:inherit;text-decoration:none}
 .history-year[data-year="NEXT"] .history-photo.is-sub{left:0;right:auto;top:clamp(160px,19vw,240px)}
 .history-year[data-year="2025"] .history-photo.is-small,
 .history-year[data-year="NEXT"] .history-photo.is-small{left:auto;right:0}
-.history-growth{
-  margin:clamp(50px,8vw,110px) 0;
-  padding:clamp(32px,5vw,60px) 0;
-  border-top:1px solid rgba(255,255,255,.14);
-  border-bottom:1px solid rgba(255,255,255,.14);
-}
-.history-growth-head{
-  display:flex;
-  align-items:baseline;
-  gap:clamp(16px,2.5vw,28px);
-  margin-bottom:clamp(28px,4vw,44px);
-}
-.history-growth-head .history-kicker{margin-bottom:0}
-.history-growth-head h3{
-  font-family:'Noto Sans JP',sans-serif;
-  font-weight:900;
-  font-size:clamp(20px,2.6vw,32px);
-}
-.history-growth-list{
-  list-style:none;
-  padding:0;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:clamp(24px,4vw,48px);
-}
-.history-growth-list li{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.growth-label{
-  color:rgba(255,255,255,.55);
-  font-size:clamp(12px,1.25vw,14px);
-  font-weight:700;
-  letter-spacing:.1em;
-}
-.growth-value{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(30px,3.6vw,50px);
-  line-height:1;
-  color:#fff;
-  white-space:nowrap;
-}
-.growth-value em{
-  font-style:normal;
-  color:#FF3B00;
-  font-size:.62em;
-  margin:0 .12em;
-}
-.growth-value small{
-  font-family:'Noto Sans JP',sans-serif;
-  font-weight:700;
-  font-size:.42em;
-  color:rgba(255,255,255,.6);
-  letter-spacing:.04em;
-}
 .history-year.is-next .history-year-num{color:#FF3B00}
 .history-year.is-next .history-card h3{
   font-size:clamp(24px,3.4vw,44px);
@@ -781,13 +725,6 @@ a{color:inherit;text-decoration:none}
   }
   .history-summary strong{
     font-size:56px;
-  }
-  .history-growth-list{
-    gap:22px;
-  }
-  .growth-value{
-    font-size:26px;
-    white-space:normal;
   }
 }
 
@@ -2048,27 +1985,6 @@ a{color:inherit;text-decoration:none}
           </div>
         </div>
       </article>
-
-      <div class="history-growth reveal" aria-label="3回の開催で積み重ねてきた軌跡">
-        <div class="history-growth-head">
-          <div class="history-kicker">TRAJECTORY</div>
-          <h3>成長の軌跡</h3>
-        </div>
-        <ul class="history-growth-list">
-          <li>
-            <span class="growth-label">来場者数</span>
-            <span class="growth-value">326 <em>→</em> 596 <em>→</em> 326<small>（有料化）</small></span>
-          </li>
-          <li>
-            <span class="growth-label">出展者数</span>
-            <span class="growth-value">120 <em>→</em> 109 <em>→</em> 112</span>
-          </li>
-          <li>
-            <span class="growth-label">会場規模</span>
-            <span class="growth-value">114<small>㎡</small> <em>→</em> 327<small>㎡</small> <em>→</em> 138<small>㎡</small></span>
-          </li>
-        </ul>
-      </div>
 
       <article class="history-year is-next" data-year="NEXT">
         <div class="history-year-num">NEXT</div>
