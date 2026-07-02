@@ -950,20 +950,45 @@ a{color:inherit;text-decoration:none}
   }
 }
 @media(max-width:520px){
+  /* モバイルは重なりをやめて縦積みコラージュにする */
   .vantan-collage{
-    min-height:760px;
+    min-height:0;
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+    padding:8px 0;
   }
   .vantan-photo figcaption{
     left:12px;
     bottom:10px;
   }
   .vantan-photo.is-competition,
+  .vantan-photo.is-process,
   .vantan-photo.is-review,
   .vantan-photo.is-keyvisual{
-    width:88vw;
+    position:relative;
+    left:auto;
+    right:auto;
+    top:auto;
+    bottom:auto;
+    width:100%;
+    height:auto;
+    aspect-ratio:4/3;
+    z-index:auto;
   }
+  .vantan-photo.is-competition{transform:rotate(-1.2deg)}
   .vantan-photo.is-process{
-    width:62vw;
+    width:76%;
+    align-self:flex-end;
+    transform:rotate(1.5deg);
+  }
+  .vantan-photo.is-review{
+    width:76%;
+    transform:rotate(-1.5deg);
+  }
+  .vantan-photo.is-keyvisual{
+    aspect-ratio:16/10;
+    transform:rotate(1deg);
   }
 }
 
