@@ -287,8 +287,7 @@ a{color:inherit;text-decoration:none}
   object-fit:cover;
   transition:transform .8s ease;
 }
-.people-row:hover .people-img img,
-.people-row:hover .people-slide{transform:scale(1.04)}
+.people-row:hover .people-img img{transform:scale(1.04)}
 .people-slider{
   position:absolute;
   inset:0;
@@ -299,12 +298,25 @@ a{color:inherit;text-decoration:none}
   position:absolute;
   inset:0;
   opacity:0;
-  transform:scale(1.06);
-  transition:opacity 1.2s ease,transform 6s ease;
+  translate:55% 0;
+  transform:scale(1.14);
+  transition:opacity .35s ease,translate .6s cubic-bezier(.3,.9,.25,1),transform 2.2s cubic-bezier(.16,.6,.3,1);
+  will-change:opacity,translate,transform;
 }
 .people-slide.is-active{
   opacity:1;
+  translate:0 0;
   transform:scale(1);
+}
+.people-slide.is-prev{
+  opacity:0;
+  translate:-40% 0;
+  transform:scale(1.06);
+}
+@media(prefers-reduced-motion:reduce){
+  .people-slide{
+    transition:none;
+  }
 }
 
 .people-text{
@@ -345,6 +357,438 @@ a{color:inherit;text-decoration:none}
   .people-row.rev .people-img{order:-1}
   .people-img{min-height:260px}
   .people-text{padding:40px 24px}
+}
+
+/* ===== SECTION: HISTORY TIMELINE ===== */
+.section-history{
+  background:#111;
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+  padding:clamp(92px,13vw,180px) clamp(24px,6vw,80px);
+}
+.history-bg-year{
+  position:absolute;
+  top:clamp(60px,12vw,160px);
+  right:-5vw;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(170px,34vw,520px);
+  line-height:.78;
+  letter-spacing:-.03em;
+  color:rgba(255,255,255,.045);
+  pointer-events:none;
+  user-select:none;
+  will-change:transform,opacity;
+}
+.history-inner{
+  position:relative;
+  z-index:2;
+  max-width:1180px;
+  margin:0 auto;
+}
+.history-kicker{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(14px,1.5vw,18px);
+  letter-spacing:.28em;
+  color:#FF3B00;
+  margin-bottom:clamp(18px,3vw,34px);
+}
+.history-title{
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:900;
+  font-size:clamp(36px,7vw,96px);
+  line-height:1.25;
+  max-width:820px;
+}
+.history-lead{
+  margin-top:clamp(34px,5vw,62px);
+  max-width:680px;
+  font-size:clamp(15px,1.45vw,18px);
+  line-height:2.1;
+  color:rgba(255,255,255,.76);
+}
+.history-lead em{
+  font-style:normal;
+  font-weight:900;
+  color:#FF3B00;
+}
+.history-summary{
+  margin-top:clamp(56px,9vw,120px);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:clamp(28px,4vw,56px);
+  list-style:none;
+  padding:0;
+}
+.history-summary li{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.history-summary strong{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(52px,8vw,116px);
+  line-height:.85;
+  color:#fff;
+  letter-spacing:.01em;
+}
+.history-summary span{
+  color:rgba(255,255,255,.58);
+  font-size:clamp(12px,1.25vw,15px);
+  font-weight:700;
+  letter-spacing:.08em;
+  padding-left:14px;
+  position:relative;
+}
+.history-summary span::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:50%;
+  width:6px;
+  height:6px;
+  translate:0 -50%;
+  background:#FF3B00;
+}
+.history-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px 20px;
+  margin-bottom:clamp(20px,3vw,32px);
+  color:rgba(255,255,255,.52);
+  font-size:clamp(12px,1.25vw,14px);
+  font-weight:700;
+  letter-spacing:.06em;
+}
+.history-track{
+  position:relative;
+  margin-top:clamp(70px,11vw,150px);
+  padding-left:clamp(32px,5vw,72px);
+}
+.history-line,
+.history-line-fill{
+  position:absolute;
+  left:0;
+  top:0;
+  width:1px;
+  height:100%;
+}
+.history-line{background:rgba(255,255,255,.16)}
+.history-line-fill{
+  height:0;
+  background:#FF3B00;
+  transform-origin:top;
+}
+.history-year{
+  position:relative;
+  min-height:92vh;
+  display:grid;
+  grid-template-columns:minmax(150px,260px) minmax(0,1fr);
+  gap:clamp(32px,6vw,90px);
+  align-items:center;
+  padding:clamp(42px,6vw,82px) 0;
+}
+.history-year::before{
+  content:"";
+  position:absolute;
+  left:calc(clamp(32px,5vw,72px) * -1 - 5px);
+  top:50%;
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.36);
+  background:#111;
+  transition:background .4s,border-color .4s,transform .4s;
+}
+.history-year.is-active::before{
+  background:#FF3B00;
+  border-color:#FF3B00;
+  transform:scale(1.2);
+}
+.history-year-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(86px,16vw,230px);
+  line-height:.9;
+  color:rgba(255,255,255,.76);
+  letter-spacing:.02em;
+}
+.history-content{
+  display:grid;
+  grid-template-columns:minmax(300px,480px) minmax(0,1fr);
+  gap:clamp(28px,5vw,72px);
+  align-items:center;
+}
+.history-card h3{
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:clamp(26px,4vw,54px);
+  line-height:1.28;
+  margin-bottom:clamp(22px,3vw,34px);
+}
+.history-stats{
+  display:grid;
+  gap:12px;
+  list-style:none;
+  margin-bottom:clamp(28px,4vw,46px);
+}
+.history-stats li{
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  color:rgba(255,255,255,.72);
+  font-weight:800;
+  letter-spacing:.03em;
+}
+.history-stats strong{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(42px,7vw,86px);
+  line-height:.85;
+  color:#FF3B00;
+  min-width:1.2em;
+}
+.history-copy{
+  font-size:clamp(15px,1.4vw,18px);
+  line-height:2.1;
+  color:rgba(255,255,255,.78);
+}
+.history-copy p+p{margin-top:1.1em}
+.history-photos{
+  position:relative;
+  min-height:clamp(470px,52vw,720px);
+}
+.history-photo{
+  position:absolute;
+  overflow:hidden;
+  background:#222;
+  box-shadow:0 30px 80px rgba(0,0,0,.34);
+  will-change:transform,opacity;
+}
+.history-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:scale(1.05);
+  will-change:transform;
+}
+.history-photo figcaption{
+  position:absolute;
+  left:16px;
+  bottom:14px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(13px,1.35vw,20px);
+  letter-spacing:.16em;
+  color:#fff;
+  text-shadow:0 2px 18px rgba(0,0,0,.58);
+}
+.history-photo.is-main{
+  width:min(42vw,520px);
+  height:clamp(260px,33vw,430px);
+  left:0;
+  top:0;
+}
+.history-photo.is-sub{
+  width:min(30vw,360px);
+  height:clamp(210px,26vw,330px);
+  right:0;
+  top:clamp(170px,20vw,250px);
+  z-index:2;
+}
+.history-photo.is-small{
+  width:min(28vw,320px);
+  height:clamp(190px,24vw,300px);
+  left:18%;
+  bottom:0;
+  z-index:3;
+}
+.history-year[data-year="2025"] .history-photo.is-main,
+.history-year[data-year="NEXT"] .history-photo.is-main{left:auto;right:5%;top:0}
+.history-year[data-year="2025"] .history-photo.is-sub,
+.history-year[data-year="NEXT"] .history-photo.is-sub{left:0;right:auto;top:clamp(160px,19vw,240px)}
+.history-year[data-year="2025"] .history-photo.is-small,
+.history-year[data-year="NEXT"] .history-photo.is-small{left:auto;right:0}
+.history-growth{
+  margin:clamp(50px,8vw,110px) 0;
+  padding:clamp(32px,5vw,60px) 0;
+  border-top:1px solid rgba(255,255,255,.14);
+  border-bottom:1px solid rgba(255,255,255,.14);
+}
+.history-growth-head{
+  display:flex;
+  align-items:baseline;
+  gap:clamp(16px,2.5vw,28px);
+  margin-bottom:clamp(28px,4vw,44px);
+}
+.history-growth-head .history-kicker{margin-bottom:0}
+.history-growth-head h3{
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:900;
+  font-size:clamp(20px,2.6vw,32px);
+}
+.history-growth-list{
+  list-style:none;
+  padding:0;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:clamp(24px,4vw,48px);
+}
+.history-growth-list li{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.growth-label{
+  color:rgba(255,255,255,.55);
+  font-size:clamp(12px,1.25vw,14px);
+  font-weight:700;
+  letter-spacing:.1em;
+}
+.growth-value{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(30px,3.6vw,50px);
+  line-height:1;
+  color:#fff;
+  white-space:nowrap;
+}
+.growth-value em{
+  font-style:normal;
+  color:#FF3B00;
+  font-size:.62em;
+  margin:0 .12em;
+}
+.growth-value small{
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:700;
+  font-size:.42em;
+  color:rgba(255,255,255,.6);
+  letter-spacing:.04em;
+}
+.history-year.is-next .history-year-num{color:#FF3B00}
+.history-year.is-next .history-card h3{
+  font-size:clamp(24px,3.4vw,44px);
+}
+@media(max-width:960px){
+  .history-summary{
+    grid-template-columns:repeat(2,1fr);
+  }
+  .history-year,
+  .history-content{
+    grid-template-columns:1fr;
+  }
+  .history-year{
+    min-height:auto;
+    align-items:start;
+  }
+  .history-content{gap:34px}
+  .history-photos{
+    min-height:620px;
+  }
+  .history-photo.is-main{
+    width:76vw;
+  }
+  .history-photo.is-sub{
+    width:50vw;
+    right:0;
+  }
+  .history-photo.is-small{
+    width:52vw;
+    left:8vw;
+  }
+}
+@media(max-width:520px){
+  .section-history{
+    padding:82px 24px 96px;
+  }
+  .history-bg-year{
+    top:70px;
+    right:-18vw;
+    font-size:44vw;
+    color:rgba(255,255,255,.055);
+  }
+  .history-title{
+    font-size:clamp(34px,9.4vw,42px);
+    line-height:1.32;
+  }
+  .history-lead{
+    line-height:2;
+  }
+  .history-track{
+    padding-left:24px;
+    margin-top:64px;
+  }
+  .history-year{
+    padding:42px 0 68px;
+    gap:14px;
+  }
+  .history-year::before{
+    left:-29px;
+    top:58px;
+  }
+  .history-year-num{
+    font-size:88px;
+  }
+  .history-card h3{
+    font-size:29px;
+    line-height:1.38;
+  }
+  .history-stats{
+    gap:10px;
+  }
+  .history-stats li{
+    gap:8px;
+  }
+  .history-stats strong{
+    font-size:50px;
+  }
+  .history-copy{
+    line-height:2;
+  }
+  .history-photos{
+    min-height:500px;
+    overflow:hidden;
+    margin-left:-24px;
+    margin-right:-24px;
+  }
+  .history-photo.is-main{
+    width:82vw;
+    height:250px;
+    left:0;
+  }
+  .history-photo.is-sub{
+    width:62vw;
+    height:210px;
+    right:0;
+    top:170px;
+  }
+  .history-photo.is-small{
+    width:58vw;
+    height:190px;
+    left:20vw;
+    bottom:0;
+  }
+  .history-year[data-year="2025"] .history-photo.is-main{
+    right:0;
+  }
+  .history-year[data-year="2025"] .history-photo.is-sub{
+    left:0;
+  }
+  .history-year[data-year="NEXT"] .history-photo.is-main{
+    right:0;
+  }
+  .history-year[data-year="NEXT"] .history-photo.is-sub{
+    left:0;
+  }
+  .history-summary{
+    gap:28px 20px;
+  }
+  .history-summary strong{
+    font-size:56px;
+  }
+  .history-growth-list{
+    gap:22px;
+  }
+  .growth-value{
+    font-size:26px;
+    white-space:normal;
+  }
 }
 
 /* ===== SECTION: VANTAN COLLABORATION ===== */
@@ -549,6 +993,31 @@ a{color:inherit;text-decoration:none}
 .kurukuru-wind span:nth-child(1){top:18%}
 .kurukuru-wind span:nth-child(2){top:42%;width:56vw;opacity:.32}
 .kurukuru-wind span:nth-child(3){top:72%;width:48vw;opacity:.24}
+.kurukuru-falling{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  overflow:hidden;
+}
+.falling-kurukuru{
+  position:absolute;
+  top:0;
+  width:clamp(64px,8vw,140px);
+  height:auto;
+  color:rgba(255,255,255,.5);
+  opacity:0;
+  will-change:transform,opacity;
+}
+.falling-kurukuru:nth-child(2){left:6%}
+.falling-kurukuru:nth-child(3){left:24%;width:clamp(44px,5.5vw,96px);color:rgba(255,59,0,.55)}
+.falling-kurukuru:nth-child(4){left:41%;width:clamp(52px,6.5vw,112px)}
+.falling-kurukuru:nth-child(5){left:58%;width:clamp(40px,5vw,88px)}
+.falling-kurukuru:nth-child(6){left:72%;color:rgba(255,59,0,.5)}
+.falling-kurukuru:nth-child(7){left:88%;width:clamp(48px,6vw,104px)}
+@media(prefers-reduced-motion:reduce){
+  .kurukuru-falling{display:none}
+}
 .kurukuru-bg-word{
   position:absolute;
   right:-6vw;
@@ -1416,6 +1885,203 @@ a{color:inherit;text-decoration:none}
 
 </section>
 
+<!-- ===== HISTORY TIMELINE ===== -->
+<section class="section-history" id="history">
+  <div class="history-bg-year" id="historyBgYear">2024</div>
+  <div class="history-inner">
+    <header class="history-header">
+      <div class="history-kicker reveal">GROWING STORY</div>
+      <h2 class="history-title reveal">育ってきたのは、<br>数字だけじゃない。</h2>
+      <p class="history-lead reveal">
+        100人のアーティスト展は、<br>
+        一度きりのイベントではありません。<br><br>
+        第1回、第2回、第3回と開催を重ねる中で、<br>
+        出展者が増え、<br>
+        来場者が増え、<br>
+        協賛やクラウドファンディングによる支援も生まれてきました。<br><br>
+        けれど本当に育ってきたのは、<br>
+        <em>「自分も描いていい」</em><br>
+        と思える人が増えてきたことです。
+      </p>
+    </header>
+
+    <ul class="history-summary" aria-label="累計実績">
+      <li class="reveal"><strong class="history-count" data-count="1248">0</strong><span>累計来場者数（名）</span></li>
+      <li class="reveal"><strong class="history-count" data-count="341">0</strong><span>累計出展者数（名）</span></li>
+      <li class="reveal"><strong class="history-count" data-count="3">0</strong><span>開催回数（回）</span></li>
+      <li class="reveal"><strong class="history-count" data-count="361">0</strong><span>公式LINE登録者（名）</span></li>
+    </ul>
+
+    <div class="history-track" id="historyTrack">
+      <div class="history-line"></div>
+      <div class="history-line-fill" id="historyLineFill"></div>
+
+      <article class="history-year" data-year="2024">
+        <div class="history-year-num">2024</div>
+        <div class="history-content">
+          <div class="history-card">
+            <h3>第1回</h3>
+            <div class="history-meta">
+              <span>2024.8.10 – 12</span>
+              <span>福岡市中央区警固 Other</span>
+              <span>114㎡</span>
+            </div>
+            <ul class="history-stats">
+              <li><strong class="history-count" data-count="326">0</strong><span>名来場</span></li>
+              <li><strong class="history-count" data-count="120">0</strong><span>名出展</span></li>
+            </ul>
+            <div class="history-copy">
+              <p>最初の一歩は、<br>「本当に100人集まるのか」<br>という不安の中から始まりました。</p>
+              <p>それでも、<br>120名の表現が集まり、<br>326名の人がその場を訪れました。</p>
+              <p>ここから、<br>100人のアーティスト展の物語が始まりました。</p>
+            </div>
+          </div>
+          <div class="history-photos" aria-label="2024年の記録写真">
+            <figure class="history-photo is-main">
+              <img src="2024/2024-photo-1.jpg" alt="2024年 会場風景" loading="lazy">
+              <figcaption>FIRST VENUE</figcaption>
+            </figure>
+            <figure class="history-photo is-sub">
+              <img src="2024/2024-photo-2.jpg" alt="2024年 出展アーティストの集合写真" loading="lazy">
+              <figcaption>100 ARTISTS</figcaption>
+            </figure>
+            <figure class="history-photo is-small">
+              <img src="2024/2024-photo-3.jpg" alt="来場者から届いた感謝のメッセージと記念クッキー" loading="lazy">
+              <figcaption>GRATITUDE</figcaption>
+            </figure>
+          </div>
+        </div>
+      </article>
+
+      <article class="history-year" data-year="2025">
+        <div class="history-year-num">2025</div>
+        <div class="history-content">
+          <div class="history-card">
+            <h3>第2回</h3>
+            <div class="history-meta">
+              <span>2025.8.9 – 11</span>
+              <span>CAITAC SQUARE GARDEN 2F Whask</span>
+              <span>327㎡</span>
+            </div>
+            <ul class="history-stats">
+              <li><strong class="history-count" data-count="596">0</strong><span>名来場</span></li>
+              <li><strong class="history-count" data-count="109">0</strong><span>名出展</span></li>
+              <li><strong class="history-count" data-count="100000">0</strong><span>人超へデジタルリーチ</span></li>
+            </ul>
+            <div class="history-copy">
+              <p>2回目は、<br>展示会としてだけでなく、<br>人と人がつながる場所へと広がりました。</p>
+              <p>来場者は596名。</p>
+              <p>協賛企業の支援も生まれ、<br>SNSやデジタル発信を通して、<br>10万人以上へ活動が届きました。</p>
+            </div>
+          </div>
+          <div class="history-photos" aria-label="2025年の記録写真">
+            <figure class="history-photo is-main">
+              <img src="2025/2025-photo-1.jpg" alt="2025年 子どもたちとアーティストの集合写真" loading="lazy">
+              <figcaption>TOGETHER</figcaption>
+            </figure>
+            <figure class="history-photo is-sub">
+              <img src="2025/2025-photo-2.jpg" alt="2025年 表彰式の様子" loading="lazy">
+              <figcaption>AWARD</figcaption>
+            </figure>
+          </div>
+        </div>
+      </article>
+
+      <article class="history-year" data-year="2026.2">
+        <div class="history-year-num">2026.2</div>
+        <div class="history-content">
+          <div class="history-card">
+            <h3>第3回</h3>
+            <div class="history-meta">
+              <span>2026.2.21 – 23</span>
+              <span>福岡市中央区大名 UNION SODA</span>
+              <span>138㎡</span>
+              <span>子ども・障がい者 17名出展</span>
+            </div>
+            <ul class="history-stats">
+              <li><strong class="history-count" data-count="326">0</strong><span>名来場（有料）</span></li>
+              <li><strong class="history-count" data-count="112">0</strong><span>名出展</span></li>
+            </ul>
+            <div class="history-copy">
+              <p>3回目では、<br>有料開催へ挑戦しました。</p>
+              <p>この展覧会は、<br>参加者だけでなく、<br>支える人たちと共につくられる<br>活動へと育ってきました。</p>
+            </div>
+          </div>
+          <div class="history-photos" aria-label="2026年冬 第3回の記録写真">
+            <figure class="history-photo is-main">
+              <img src="2026winter-keyvisual.jpg" alt="第3回 キービジュアル「あなたの色がここにある」" loading="lazy">
+              <figcaption>KEY VISUAL</figcaption>
+            </figure>
+            <figure class="history-photo is-sub">
+              <img src="2026winter-photo-2.jpg" alt="第3回 出展作品" loading="lazy">
+              <figcaption>WORKS</figcaption>
+            </figure>
+            <figure class="history-photo is-small">
+              <img src="2026winter-photo-1.jpg" alt="第3回 出展作品" loading="lazy">
+              <figcaption>EXPRESSIONS</figcaption>
+            </figure>
+          </div>
+        </div>
+      </article>
+
+      <div class="history-growth reveal" aria-label="3回の開催で積み重ねてきた軌跡">
+        <div class="history-growth-head">
+          <div class="history-kicker">TRAJECTORY</div>
+          <h3>成長の軌跡</h3>
+        </div>
+        <ul class="history-growth-list">
+          <li>
+            <span class="growth-label">来場者数</span>
+            <span class="growth-value">326 <em>→</em> 596 <em>→</em> 326<small>（有料化）</small></span>
+          </li>
+          <li>
+            <span class="growth-label">出展者数</span>
+            <span class="growth-value">120 <em>→</em> 109 <em>→</em> 112</span>
+          </li>
+          <li>
+            <span class="growth-label">会場規模</span>
+            <span class="growth-value">114<small>㎡</small> <em>→</em> 327<small>㎡</small> <em>→</em> 138<small>㎡</small></span>
+          </li>
+        </ul>
+      </div>
+
+      <article class="history-year is-next" data-year="NEXT">
+        <div class="history-year-num">NEXT</div>
+        <div class="history-content">
+          <div class="history-card">
+            <h3>第4回<br>100人のアーティスト展 2026夏</h3>
+            <div class="history-meta">
+              <span>2026.8.1 – 3</span>
+              <span>ART BASE KMY</span>
+              <span>福岡市博多区神屋町4-2</span>
+            </div>
+            <div class="history-copy">
+              <p>そして2026年夏。</p>
+              <p>第4回は、<br>ART BASE KMYを会場に開催します。</p>
+              <p>展示会場だけで終わらず、<br>蔦屋書店、プリンスホテル展示、<br>アクリルブロック作品、<br>くるくるコラボ、<br>バンタンとのキービジュアル制作へ。</p>
+              <p>100人の表現は、<br>さらに街へ広がっていきます。</p>
+            </div>
+          </div>
+          <div class="history-photos" aria-label="2026年夏 第4回の広がりを表す写真">
+            <figure class="history-photo is-main">
+              <img src="IMG_1524 4.PNG" alt="2026年夏 100人の大事なもの 展示イメージ" loading="lazy">
+              <figcaption>100 WORKS</figcaption>
+            </figure>
+            <figure class="history-photo is-sub">
+              <img src="129773-127-9e8da27482c21072d846410d2a30c09c-1024x576.webp" alt="蔦屋書店展示イメージ" loading="lazy">
+              <figcaption>TSUTAYA</figcaption>
+            </figure>
+            <figure class="history-photo is-small">
+              <img src="kurukuru/kurukuru-product.jpg" alt="くるくるコラボ作品" loading="lazy">
+              <figcaption>COLLABORATION</figcaption>
+            </figure>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ===== VANTAN COLLABORATION ===== -->
 <section class="section-vantan" id="vantan">
   <div class="vantan-bg-word" id="vantanBg">VANTAN<br>KEY VISUAL<br>COMPETITION</div>
@@ -1460,6 +2126,20 @@ a{color:inherit;text-decoration:none}
     <span></span>
     <span></span>
     <span></span>
+  </div>
+  <div class="kurukuru-falling" aria-hidden="true">
+    <svg width="0" height="0" style="position:absolute">
+      <symbol id="kurukuruBlade" viewBox="0 0 200 56">
+        <path d="M100 10 C 74 2 44 6 24 22 C 9 34 10 48 28 46 C 58 43 84 27 100 10 Z"/>
+        <path d="M100 10 C 126 2 156 6 176 22 C 191 34 190 48 172 46 C 142 43 116 27 100 10 Z"/>
+      </symbol>
+    </svg>
+    <svg class="falling-kurukuru" viewBox="0 0 200 56" fill="currentColor"><use href="#kurukuruBlade"/></svg>
+    <svg class="falling-kurukuru" viewBox="0 0 200 56" fill="currentColor"><use href="#kurukuruBlade"/></svg>
+    <svg class="falling-kurukuru" viewBox="0 0 200 56" fill="currentColor"><use href="#kurukuruBlade"/></svg>
+    <svg class="falling-kurukuru" viewBox="0 0 200 56" fill="currentColor"><use href="#kurukuruBlade"/></svg>
+    <svg class="falling-kurukuru" viewBox="0 0 200 56" fill="currentColor"><use href="#kurukuruBlade"/></svg>
+    <svg class="falling-kurukuru" viewBox="0 0 200 56" fill="currentColor"><use href="#kurukuruBlade"/></svg>
   </div>
   <div class="kurukuru-bg-word" id="kurukuruBg">ART for BEING</div>
   <div class="kurukuru-inner">
@@ -1707,14 +2387,23 @@ function buildAcrylicBlocks() {
 }
 
 function initPeopleSlider() {
+  const slider = document.getElementById('peopleSlider');
   const slides = Array.from(document.querySelectorAll('#peopleSlider .people-slide'));
-  if (slides.length < 2) return;
+  if (!slider || slides.length < 2) return;
   let current = 0;
+  slides.forEach((slide, i) => {
+    slide.classList.toggle('is-active', i === current);
+    slide.classList.remove('is-prev');
+  });
   setInterval(() => {
+    const prev = current;
     slides[current].classList.remove('is-active');
+    slides[current].classList.add('is-prev');
     current = (current + 1) % slides.length;
+    slides[current].classList.remove('is-prev');
     slides[current].classList.add('is-active');
-  }, 3600);
+    window.setTimeout(() => slides[prev].classList.remove('is-prev'), 700);
+  }, 2400);
 }
 
 /* ===================================================
@@ -1805,6 +2494,165 @@ function initGSAP() {
     }
   });
 
+  // History: 年号が静かに進むタイムライン
+  const historyYears = gsap.utils.toArray('.history-year');
+  const historyBg = document.getElementById('historyBgYear');
+  if (historyYears.length && historyBg) {
+    let activeHistoryYear = historyBg.textContent;
+    const setHistoryYear = (year) => {
+      if (!year || activeHistoryYear === year) return;
+      activeHistoryYear = year;
+      gsap.to(historyBg, {
+        opacity: 0,
+        y: 18,
+        duration: .22,
+        ease: 'power2.out',
+        onComplete: () => {
+          historyBg.textContent = year;
+          gsap.fromTo(historyBg,
+            { opacity: 0, y: -18 },
+            { opacity: 1, y: 0, duration: .5, ease: 'power2.out' }
+          );
+        }
+      });
+    };
+
+    gsap.to('#historyBgYear', {
+      xPercent: -10,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.section-history',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.4
+      }
+    });
+
+    gsap.to('#historyLineFill', {
+      height: '100%',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#historyTrack',
+        start: 'top 68%',
+        end: 'bottom 58%',
+        scrub: true
+      }
+    });
+
+    historyYears.forEach((yearBlock, index) => {
+      const year = yearBlock.dataset.year;
+      ScrollTrigger.create({
+        trigger: yearBlock,
+        start: 'top 52%',
+        end: 'bottom 52%',
+        toggleClass: { targets: yearBlock, className: 'is-active' },
+        onEnter: () => setHistoryYear(year),
+        onEnterBack: () => setHistoryYear(year)
+      });
+
+      gsap.fromTo(yearBlock.querySelector('.history-year-num'),
+        { y: 36, opacity: .35 },
+        {
+          y: 0,
+          opacity: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: yearBlock,
+            start: 'top 78%',
+            end: 'top 38%',
+            scrub: .8
+          }
+        }
+      );
+
+      gsap.fromTo(yearBlock.querySelector('.history-card'),
+        { y: 58, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: yearBlock,
+            start: 'top 72%',
+            once: true
+          }
+        }
+      );
+
+      gsap.utils.toArray(yearBlock.querySelectorAll('.history-photo')).forEach((photo, photoIndex) => {
+        const fromLeft = (index + photoIndex) % 2 === 0;
+        gsap.fromTo(photo,
+          { x: fromLeft ? -70 : 70, y: 46, opacity: 0, rotate: fromLeft ? -2 : 2 },
+          {
+            x: 0,
+            y: 0,
+            opacity: 1,
+            rotate: 0,
+            duration: 1.05,
+            delay: photoIndex * .08,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: photo,
+              start: 'top 86%',
+              once: true
+            }
+          }
+        );
+        gsap.to(photo.querySelector('img'), {
+          scale: 1.16,
+          yPercent: photoIndex === 1 ? -7 : 6,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: photo,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.3
+          }
+        });
+      });
+
+      gsap.utils.toArray(yearBlock.querySelectorAll('.history-count')).forEach(countEl => {
+        const target = Number(countEl.dataset.count || 0);
+        const counter = { value: 0 };
+        gsap.to(counter, {
+          value: target,
+          duration: 1.25,
+          ease: 'power2.out',
+          snap: { value: 1 },
+          onUpdate: () => {
+            countEl.textContent = Math.round(counter.value).toLocaleString('ja-JP');
+          },
+          scrollTrigger: {
+            trigger: countEl,
+            start: 'top 86%',
+            once: true
+          }
+        });
+      });
+    });
+
+    // 累計実績サマリー: 大きな数字のカウントアップ
+    gsap.utils.toArray('.history-summary .history-count').forEach(countEl => {
+      const target = Number(countEl.dataset.count || 0);
+      const counter = { value: 0 };
+      gsap.to(counter, {
+        value: target,
+        duration: 1.6,
+        ease: 'power2.out',
+        snap: { value: 1 },
+        onUpdate: () => {
+          countEl.textContent = Math.round(counter.value).toLocaleString('ja-JP');
+        },
+        scrollTrigger: {
+          trigger: countEl,
+          start: 'top 86%',
+          once: true
+        }
+      });
+    });
+  }
+
   // Vantan collaboration: 背景文字と写真コラージュ
   gsap.to('#vantanBg', {
     xPercent: 16,
@@ -1869,6 +2717,39 @@ function initGSAP() {
       }
     });
   });
+
+  // Kurukuru: 上からゆっくり舞い降りるくるくる
+  const fallingKurukuru = gsap.utils.toArray('.falling-kurukuru');
+  if (fallingKurukuru.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const kurukuruSection = document.querySelector('.section-kurukuru');
+    const fallTimelines = fallingKurukuru.map((el, i) => {
+      const dur = gsap.utils.random(11, 17);
+      const startRot = gsap.utils.random(-40, 40);
+      const spin = gsap.utils.random(200, 380) * (i % 2 ? -1 : 1);
+      const peak = i % 3 === 0 ? .55 : .38;
+      const fallHeight = () => kurukuruSection.offsetHeight + 200;
+      const tl = gsap.timeline({ repeat: -1, paused: true, delay: i * 2.2 });
+      tl.set(el, { y: -180, rotation: startRot, opacity: 0 })
+        .to(el, { y: () => fallHeight() * .2, rotation: startRot + spin * .2, opacity: peak, duration: dur * .2, ease: 'none' })
+        .to(el, { y: () => fallHeight() * .8, rotation: startRot + spin * .8, duration: dur * .6, ease: 'none' })
+        .to(el, { y: fallHeight, rotation: startRot + spin, opacity: 0, duration: dur * .2, ease: 'none' });
+      // 横に揺れながら落ちる
+      gsap.to(el, {
+        x: gsap.utils.random(30, 70) * (i % 2 ? -1 : 1),
+        duration: gsap.utils.random(2.4, 4),
+        yoyo: true,
+        repeat: -1,
+        ease: 'sine.inOut'
+      });
+      return tl;
+    });
+    ScrollTrigger.create({
+      trigger: '.section-kurukuru',
+      start: 'top bottom',
+      end: 'bottom top',
+      onToggle: self => fallTimelines.forEach(tl => self.isActive ? tl.play() : tl.pause())
+    });
+  }
 
   gsap.utils.toArray('.kurukuru-photo').forEach((photo, i) => {
     gsap.fromTo(photo,

@@ -1,0 +1,23 @@
+# LPに必要なファイルだけを管理する（他は全て無視）
+/*
+!/.gitignore
+!/index.html
+!/images/
+!/100LP画像/
+!/2024/
+!/2025/
+!/kurukuru/
+!/バンタン/
+!/129773-127-9e8da27482c21072d846410d2a30c09c-1024x576.webp
+!/250810184708424.JPG
+!/A4.jpg
+!/IMG_1524 4.PNG
+!/a98b1120712ae2558c294773114e59b3-2.webp
+!/2026winter-keyvisual.jpg
+!/2026winter-photo-1.jpg
+!/2026winter-photo-2.jpg
+
+# 元データ・アーカイブは追加しない
+*.HEIC
+*.heic
+*.zip
