@@ -13,9 +13,7 @@
 !/A4.jpg
 !/IMG_1524 4.PNG
 !/a98b1120712ae2558c294773114e59b3-2.webp
-!/2026winter-keyvisual.jpg
-!/2026winter-photo-1.jpg
-!/2026winter-photo-2.jpg
+!/2026winter-*.jpg
 
 # 元データ・アーカイブは追加しない
 *.HEIC
