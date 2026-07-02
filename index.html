@@ -206,12 +206,45 @@ a{color:inherit;text-decoration:none}
 .btn-outline:hover{background:#f5f0e8;color:#111}
 .btn-red{background:#111;color:#fff}
 .btn-red:hover{background:#fff;color:#FF3B00;animation:shake .4s ease}
+.btn-orange{background:#FF3B00;color:#fff}
+.btn-orange:hover{background:#fff;color:#FF3B00}
 @keyframes shake{
   0%,100%{transform:translateY(-3px) rotate(0deg)}
   20%{transform:translateY(-3px) rotate(-1deg)}
   40%{transform:translateY(-3px) rotate(1.5deg)}
   60%{transform:translateY(-3px) rotate(-.5deg)}
   80%{transform:translateY(-3px) rotate(1deg)}
+}
+
+.section-cta-band{
+  background:#111;
+  color:#fff;
+  padding:clamp(42px,7vw,86px) clamp(24px,6vw,80px);
+  border-top:1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.cta-band-inner{
+  max-width:1180px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:28px;
+}
+.cta-band-copy{
+  font-size:clamp(18px,2.4vw,34px);
+  font-weight:900;
+  line-height:1.45;
+}
+@media(max-width:680px){
+  .cta-band-inner{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  .section-cta-band .btn{
+    width:100%;
+    text-align:center;
+  }
 }
 
 /* ===== SECTION: INTRO ===== */
@@ -298,7 +331,7 @@ a{color:inherit;text-decoration:none}
   position:absolute;
   inset:0;
   opacity:0;
-  translate:55% 0;
+  translate:55% 16px;
   transform:scale(1.14);
   transition:opacity .35s ease,translate .6s cubic-bezier(.3,.9,.25,1),transform 2.2s cubic-bezier(.16,.6,.3,1);
   will-change:opacity,translate,transform;
@@ -310,7 +343,7 @@ a{color:inherit;text-decoration:none}
 }
 .people-slide.is-prev{
   opacity:0;
-  translate:-40% 0;
+  translate:-40% -10px;
   transform:scale(1.06);
 }
 @media(prefers-reduced-motion:reduce){
@@ -599,16 +632,9 @@ a{color:inherit;text-decoration:none}
   bottom:0;
   z-index:3;
 }
-.history-year[data-year="2025"] .history-photo.is-main,
-.history-year[data-year="NEXT"] .history-photo.is-main{left:auto;right:5%;top:0}
-.history-year[data-year="2025"] .history-photo.is-sub,
-.history-year[data-year="NEXT"] .history-photo.is-sub{left:0;right:auto;top:clamp(160px,19vw,240px)}
-.history-year[data-year="2025"] .history-photo.is-small,
-.history-year[data-year="NEXT"] .history-photo.is-small{left:auto;right:0}
-.history-year.is-next .history-year-num{color:#FF3B00}
-.history-year.is-next .history-card h3{
-  font-size:clamp(24px,3.4vw,44px);
-}
+.history-year[data-year="2025"] .history-photo.is-main{left:auto;right:5%;top:0}
+.history-year[data-year="2025"] .history-photo.is-sub{left:0;right:auto;top:clamp(160px,19vw,240px)}
+.history-year[data-year="2025"] .history-photo.is-small{left:auto;right:0}
 @media(max-width:960px){
   .history-summary{
     grid-template-columns:repeat(2,1fr);
@@ -712,12 +738,6 @@ a{color:inherit;text-decoration:none}
     right:0;
   }
   .history-year[data-year="2025"] .history-photo.is-sub{
-    left:0;
-  }
-  .history-year[data-year="NEXT"] .history-photo.is-main{
-    right:0;
-  }
-  .history-year[data-year="NEXT"] .history-photo.is-sub{
     left:0;
   }
   .history-summary{
@@ -1498,6 +1518,63 @@ a{color:inherit;text-decoration:none}
   }
 }
 
+/* ===== SECTION: 2026 SUMMER HIGHLIGHTS ===== */
+.section-summer{
+  background:#111;
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+}
+.summer-feature{
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.section-summer .section-vantan,
+.section-summer .section-kurukuru,
+.section-summer .section-journey,
+.section-summer .section-unity{
+  background:transparent;
+}
+.section-summer .section-vantan,
+.section-summer .section-unity{
+  color:#fff;
+}
+.section-summer .vantan-bg-word{
+  color:rgba(255,255,255,.04);
+}
+.section-summer .vantan-body{
+  color:rgba(255,255,255,.72);
+}
+.section-summer .vantan-note{
+  color:#fff;
+}
+.section-summer .unity-bg-number{
+  color:rgba(255,255,255,.05);
+}
+.section-summer .unity-body p{
+  color:rgba(255,255,255,.74);
+}
+.section-summer .unity-pin{
+  min-height:145vh;
+}
+.summer-cta{
+  padding:clamp(60px,9vw,120px) clamp(24px,6vw,80px);
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.summer-cta p{
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:clamp(28px,5vw,72px);
+  font-weight:900;
+  line-height:1.35;
+  margin-bottom:clamp(28px,4vw,48px);
+}
+@media(max-width:520px){
+  .summer-cta .btn{
+    width:100%;
+    text-align:center;
+  }
+}
+
 /* ===== SECTION: WHY ===== */
 .section-why{
   background:#111;
@@ -1701,6 +1778,42 @@ a{color:inherit;text-decoration:none}
 .btn-outline-white{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
 .btn-outline-white:hover{background:#fff;color:#FF3B00}
 
+/* ===== MOBILE FIXED CTA ===== */
+.mobile-cta{
+  position:fixed;
+  left:12px;
+  right:12px;
+  bottom:12px;
+  z-index:120;
+  display:none;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:6px;
+  padding:8px;
+  background:rgba(17,17,17,.82);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  box-shadow:0 18px 54px rgba(0,0,0,.32);
+}
+.mobile-cta a{
+  min-height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.08em;
+  background:rgba(255,255,255,.08);
+}
+.mobile-cta a:first-child{
+  background:#FF3B00;
+}
+@media(max-width:760px){
+  body{padding-bottom:76px}
+  .mobile-cta{display:grid}
+}
+
 /* ===== FOOTER ===== */
 .footer{
   background:#111;
@@ -1739,10 +1852,18 @@ a{color:inherit;text-decoration:none}
 <nav class="nav">
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
+    <li><a href="#history">History</a></li>
+    <li><a href="#summer">2026 Summer</a></li>
     <li><a href="#sponsor">Sponsor</a></li>
     <li><a href="#access">Access</a></li>
   </ul>
 </nav>
+
+<div class="mobile-cta" aria-label="固定メニュー">
+  <a href="#access">来場する</a>
+  <a href="https://heartfelt-flan-65d0df.netlify.app/">協賛する</a>
+  <a href="#access">アクセス</a>
+</div>
 
 <!-- ===== HERO ===== -->
 <section class="hero">
@@ -1783,17 +1904,11 @@ a{color:inherit;text-decoration:none}
   <div class="intro-counter" id="introCounter">100</div>
   <div class="intro-text">
     <p class="reveal">100人のアーティスト展は、<br>
-    誰もが<em>チャレンジ</em>できる場所、<br>
-    失敗が許される場所です。</p>
-    <br>
-    <p class="reveal">それを認め合える<br>
-    <em>優しい世界</em>として、<br>
-    審査や高額な出展料はなく、<br>
-    誰でもトライできる場所となっています。</p>
-    <br>
-    <p class="reveal">表現すること、<br>
-    好きなものを好きと言える<em>勇気</em>が<br>
-    集まったアート展です。</p>
+    誰もが<em>チャレンジ</em>できる場所です。</p>
+    <p class="reveal">審査や高額な出展料ではなく、<br>
+    <em>好きなものを好きと言える勇気</em>を集める。</p>
+    <p class="reveal">ここは、表現を認め合う<br>
+    小さな<em>優しい世界</em>です。</p>
   </div>
 </section>
 
@@ -1853,25 +1968,21 @@ a{color:inherit;text-decoration:none}
   <div class="history-inner">
     <header class="history-header">
       <div class="history-kicker reveal">GROWING STORY</div>
-      <h2 class="history-title reveal">皆様に支えられて<br>ここまでやってこれました。</h2>
+      <h2 class="history-title reveal">少しずつ、<br>この場所は育ってきた。</h2>
       <p class="history-lead reveal">
         100人のアーティスト展は、<br>
         一度きりのイベントではありません。<br><br>
-        第1回、第2回、第3回と開催を重ねる中で、<br>
-        出展者が増え、<br>
-        来場者が増え、<br>
-        協賛やクラウドファンディングによる支援も生まれてきました。<br><br>
-        けれど本当に育ってきたのは、<br>
-        <em>「自分も描いていい」</em><br>
-        と思える人が増えてきたことです。
+        毎年、少しずつ人が増え、<br>
+        想いがつながり、<br>
+        新しい出会いが生まれてきました。
       </p>
     </header>
 
     <ul class="history-summary" aria-label="累計実績">
-      <li class="reveal"><strong class="history-count" data-count="1248">0</strong><span>累計来場者数（名）</span></li>
-      <li class="reveal"><strong class="history-count" data-count="341">0</strong><span>累計出展者数（名）</span></li>
-      <li class="reveal"><strong class="history-count" data-count="3">0</strong><span>開催回数（回）</span></li>
-      <li class="reveal"><strong class="history-count" data-count="361">0</strong><span>公式LINE登録者（名）</span></li>
+      <li class="reveal"><strong class="history-count" data-count="1248">1,248</strong><span>累計来場者数（名）</span></li>
+      <li class="reveal"><strong class="history-count" data-count="341">341</strong><span>累計出展者数（名）</span></li>
+      <li class="reveal"><strong class="history-count" data-count="3">3</strong><span>開催回数（回）</span></li>
+      <li class="reveal"><strong class="history-count" data-count="361">361</strong><span>公式LINE登録者（名）</span></li>
     </ul>
 
     <div class="history-track" id="historyTrack">
@@ -1884,18 +1995,14 @@ a{color:inherit;text-decoration:none}
           <div class="history-card">
             <h3>第1回</h3>
             <div class="history-meta">
-              <span>2024.8.10 – 12</span>
-              <span>福岡市中央区警固 Other</span>
-              <span>114㎡</span>
+              <span>2024</span>
             </div>
             <ul class="history-stats">
-              <li><strong class="history-count" data-count="326">0</strong><span>名来場</span></li>
-              <li><strong class="history-count" data-count="120">0</strong><span>名出展</span></li>
+              <li><strong class="history-count" data-count="120">120</strong><span>名出展</span></li>
+              <li><strong class="history-count" data-count="326">326</strong><span>名来場</span></li>
             </ul>
             <div class="history-copy">
-              <p>最初の一歩は、<br>「本当に100人集まるのか」<br>という不安の中から始まりました。</p>
-              <p>それでも、<br>120名の表現が集まり、<br>326名の人がその場を訪れました。</p>
-              <p>ここから、<br>100人のアーティスト展の物語が始まりました。</p>
+              <p>ここから始まりました。</p>
             </div>
           </div>
           <div class="history-photos" aria-label="2024年の記録写真">
@@ -1921,19 +2028,16 @@ a{color:inherit;text-decoration:none}
           <div class="history-card">
             <h3>第2回</h3>
             <div class="history-meta">
-              <span>2025.8.9 – 11</span>
-              <span>CAITAC SQUARE GARDEN 2F Whask</span>
-              <span>327㎡</span>
+              <span>2025</span>
             </div>
             <ul class="history-stats">
-              <li><strong class="history-count" data-count="596">0</strong><span>名来場</span></li>
-              <li><strong class="history-count" data-count="109">0</strong><span>名出展</span></li>
-              <li><strong class="history-count" data-count="100000">0</strong><span>人超へデジタルリーチ</span></li>
+              <li><strong class="history-count" data-count="109">109</strong><span>名出展</span></li>
+              <li><strong class="history-count" data-count="596">596</strong><span>名来場</span></li>
+              <li><strong class="history-count" data-count="4">4</strong><span>社協賛</span></li>
+              <li><strong class="history-count" data-count="100000">100,000</strong><span>人超へデジタルリーチ</span></li>
             </ul>
             <div class="history-copy">
-              <p>2回目は、<br>展示会としてだけでなく、<br>人と人がつながる場所へと広がりました。</p>
-              <p>来場者は596名。</p>
-              <p>協賛企業の支援も生まれ、<br>SNSやデジタル発信を通して、<br>10万人以上へ活動が届きました。</p>
+              <p>つながりが広がりました。</p>
             </div>
           </div>
           <div class="history-photos" aria-label="2025年の記録写真">
@@ -1949,24 +2053,22 @@ a{color:inherit;text-decoration:none}
         </div>
       </article>
 
-      <article class="history-year" data-year="2026.2">
-        <div class="history-year-num">2026.2</div>
+      <article class="history-year" data-year="2026">
+        <div class="history-year-num">2026</div>
         <div class="history-content">
           <div class="history-card">
             <h3>第3回</h3>
             <div class="history-meta">
-              <span>2026.2.21 – 23</span>
-              <span>福岡市中央区大名 UNION SODA</span>
-              <span>138㎡</span>
-              <span>子ども・障がい者 17名出展</span>
+              <span>2026</span>
             </div>
             <ul class="history-stats">
-              <li><strong class="history-count" data-count="326">0</strong><span>名来場（有料）</span></li>
-              <li><strong class="history-count" data-count="112">0</strong><span>名出展</span></li>
+              <li><strong class="history-count" data-count="112">112</strong><span>名出展</span></li>
+              <li><strong>有料</strong><span>開催</span></li>
+              <li><strong class="history-count" data-count="49">49</strong><span>万円 CF</span></li>
+              <li><strong class="history-count" data-count="85">85</strong><span>万円 協賛</span></li>
             </ul>
             <div class="history-copy">
-              <p>3回目では、<br>有料開催へ挑戦しました。</p>
-              <p>この展覧会は、<br>参加者だけでなく、<br>支える人たちと共につくられる<br>活動へと育ってきました。</p>
+              <p>挑戦が未来をつくりました。</p>
             </div>
           </div>
           <div class="history-photos" aria-label="2026年冬 第3回の記録写真">
@@ -1985,46 +2087,22 @@ a{color:inherit;text-decoration:none}
           </div>
         </div>
       </article>
-
-      <article class="history-year is-next" data-year="NEXT">
-        <div class="history-year-num">NEXT</div>
-        <div class="history-content">
-          <div class="history-card">
-            <h3>第4回<br>100人のアーティスト展 2026夏</h3>
-            <div class="history-meta">
-              <span>2026.8.1 – 3</span>
-              <span>ART BASE KMY</span>
-              <span>福岡市博多区神屋町4-2</span>
-            </div>
-            <div class="history-copy">
-              <p>そして2026年夏。</p>
-              <p>第4回は、<br>ART BASE KMYを会場に開催します。</p>
-              <p>展示会場だけで終わらず、<br>蔦屋書店、プリンスホテル展示、<br>アクリルブロック作品、<br>くるくるコラボ、<br>バンタンとのキービジュアル制作へ。</p>
-              <p>100人の表現は、<br>さらに街へ広がっていきます。</p>
-            </div>
-          </div>
-          <div class="history-photos" aria-label="2026年夏 第4回の広がりを表す写真">
-            <figure class="history-photo is-main">
-              <img src="IMG_1524 4.PNG" alt="2026年夏 100人の大事なもの 展示イメージ" loading="lazy">
-              <figcaption>100 WORKS</figcaption>
-            </figure>
-            <figure class="history-photo is-sub">
-              <img src="129773-127-9e8da27482c21072d846410d2a30c09c-1024x576.webp" alt="蔦屋書店展示イメージ" loading="lazy">
-              <figcaption>TSUTAYA</figcaption>
-            </figure>
-            <figure class="history-photo is-small">
-              <img src="a98b1120712ae2558c294773114e59b3-2.webp" alt="プリンスホテル展示" loading="lazy">
-              <figcaption>PRINCE HOTEL</figcaption>
-            </figure>
-          </div>
-        </div>
-      </article>
     </div>
   </div>
 </section>
 
+<section class="section-cta-band" aria-label="来場CTA">
+  <div class="cta-band-inner">
+    <p class="cta-band-copy">数字の先にある、<br>一人ひとりの作品に会いに来てください。</p>
+    <a href="#access" class="btn btn-orange">この夏、作品に会いに行く</a>
+  </div>
+</section>
+
+<!-- ===== 2026 SUMMER HIGHLIGHTS ===== -->
+<section class="section-summer" id="summer">
+
 <!-- ===== VANTAN COLLABORATION ===== -->
-<section class="section-vantan" id="vantan">
+<article class="section-vantan summer-feature" id="vantan">
   <div class="vantan-bg-word" id="vantanBg">VANTAN<br>KEY VISUAL<br>COMPETITION</div>
   <div class="vantan-inner">
     <div class="vantan-copy">
@@ -2059,10 +2137,10 @@ a{color:inherit;text-decoration:none}
       </figure>
     </div>
   </div>
-</section>
+</article>
 
 <!-- ===== KURUKURU PROJECT ===== -->
-<section class="section-kurukuru" id="kurukuru">
+<article class="section-kurukuru summer-feature" id="kurukuru">
   <div class="kurukuru-wind" aria-hidden="true">
     <span></span>
     <span></span>
@@ -2121,10 +2199,10 @@ a{color:inherit;text-decoration:none}
   <div class="kurukuru-final">
     <p class="reveal">表現は、<br>人をつなぐ。</p>
   </div>
-</section>
+</article>
 
 <!-- ===== ART JOURNEY ===== -->
-<section class="section-journey" id="journey">
+<article class="section-journey summer-feature" id="journey">
   <div class="journey-bg-word" id="journeyBg">NEXT</div>
   <div class="journey-grid">
     <div class="journey-visual">
@@ -2151,7 +2229,7 @@ a{color:inherit;text-decoration:none}
       <p>100人のアーティスト展終了後、<br>作品はONE BUILDING内の蔦屋書店、<br>そしてプリンスホテルももち浜へ展示されます。</p>
       <p>本を探しに来た人。<br>旅の途中で立ち寄った人。<br>偶然その場を訪れた人。</p>
       <p>あなたの大事を見て、<br>「当たり前」のものに気づき、<br>それは今「有るもの」に目を向ける<br>きっかけになります。</p>
-      <p>作品は展示会場を飛び出し、<br>街の中へ旅を続けます。</p>
+      <p>作品はアート展会場を飛び出し、<br>街の中へ旅を続けます。</p>
       <div class="journey-timeline" id="journeyTimeline">
         <div class="journey-line"></div>
         <div class="journey-line-fill" id="journeyLineFill"></div>
@@ -2161,10 +2239,10 @@ a{color:inherit;text-decoration:none}
       </div>
     </div>
   </div>
-</section>
+</article>
 
 <!-- ===== 100 UNITY ===== -->
-<section class="section-unity" id="unity">
+<article class="section-unity summer-feature" id="unity">
   <div class="unity-pin" id="unityPin">
     <div class="unity-bg-number" id="unityNumber">100</div>
     <div class="unity-inner">
@@ -2177,7 +2255,7 @@ a{color:inherit;text-decoration:none}
           <p>一人では生まれない景色があります。<br>100人だからこそ、完成する作品があります。</p>
           <p>違う価値観。<br>違う人生。<br>違う表現。</p>
           <p>その違いが、<br>一つの作品になります。</p>
-          <p>展示会が終わっても、<br>この作品は未来へ残り続けます。</p>
+          <p>アート展が終わっても、<br>この作品は未来へ残り続けます。</p>
         </div>
       </div>
       <div class="acrylic-stage" aria-label="100個のアクリルブロック作品">
@@ -2191,18 +2269,11 @@ a{color:inherit;text-decoration:none}
       <p>100人の作品。<br>一つのアート。</p>
     </div>
   </div>
-</section>
+</article>
 
-<!-- ===== WHY ===== -->
-<section class="section-why">
-  <div class="why-bg-text" id="whyBg">ART</div>
-  <div class="why-inner">
-    <div class="why-text">
-      <p class="reveal">誰かの表現が、<br><strong>誰かの勇気になることがあります。</strong></p>
-      <p class="reveal">子どもが描いた一枚に、<br>大人が立ち止まることがあります。</p>
-      <p class="reveal">言葉にできなかった想いが、絵になった瞬間、<br>誰かに届くことがあります。</p>
-      <p class="reveal big">このアート展は、<br>そんな<strong>小さな奇跡</strong>が<br>生まれる場所です。</p>
-    </div>
+  <div class="summer-cta">
+    <p class="reveal">この広がりを、<br>一緒につくってください。</p>
+    <a href="https://heartfelt-flan-65d0df.netlify.app/" class="btn btn-orange reveal">活動を応援する</a>
   </div>
 </section>
 
@@ -2268,7 +2339,8 @@ a{color:inherit;text-decoration:none}
     </div>
     <div class="final-ctas">
       <a href="#access" class="btn btn-white reveal">来場する</a>
-      <a href="https://heartfelt-flan-65d0df.netlify.app/" class="btn btn-outline-white reveal">協賛について問い合わせる</a>
+      <a href="https://heartfelt-flan-65d0df.netlify.app/" class="btn btn-outline-white reveal">協賛する</a>
+      <a href="#access" class="btn btn-outline-white reveal">アクセスを見る</a>
     </div>
   </div>
 </section>
@@ -2343,8 +2415,8 @@ function initPeopleSlider() {
     current = (current + 1) % slides.length;
     slides[current].classList.remove('is-prev');
     slides[current].classList.add('is-active');
-    window.setTimeout(() => slides[prev].classList.remove('is-prev'), 700);
-  }, 2400);
+    window.setTimeout(() => slides[prev].classList.remove('is-prev'), 620);
+  }, 2300);
 }
 
 /* ===================================================
@@ -2353,6 +2425,20 @@ function initPeopleSlider() {
 function initGSAP() {
   if (typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
+  const countUp = (countEl, duration = 1.25) => {
+    const target = Number(countEl.dataset.count || 0);
+    const counter = { value: 0 };
+    countEl.textContent = '0';
+    gsap.to(counter, {
+      value: target,
+      duration,
+      ease: 'power2.out',
+      snap: { value: 1 },
+      onUpdate: () => {
+        countEl.textContent = Math.round(counter.value).toLocaleString('ja-JP');
+      }
+    });
+  };
 
   // Hero: タイトルラインが下から出る
   gsap.to(['#htLine1','#htLine2'], {
@@ -2554,42 +2640,22 @@ function initGSAP() {
       });
 
       gsap.utils.toArray(yearBlock.querySelectorAll('.history-count')).forEach(countEl => {
-        const target = Number(countEl.dataset.count || 0);
-        const counter = { value: 0 };
-        gsap.to(counter, {
-          value: target,
-          duration: 1.25,
-          ease: 'power2.out',
-          snap: { value: 1 },
-          onUpdate: () => {
-            countEl.textContent = Math.round(counter.value).toLocaleString('ja-JP');
-          },
-          scrollTrigger: {
-            trigger: countEl,
-            start: 'top 86%',
-            once: true
-          }
+        ScrollTrigger.create({
+          trigger: countEl,
+          start: 'top 86%',
+          once: true,
+          onEnter: () => countUp(countEl)
         });
       });
     });
 
     // 累計実績サマリー: 大きな数字のカウントアップ
     gsap.utils.toArray('.history-summary .history-count').forEach(countEl => {
-      const target = Number(countEl.dataset.count || 0);
-      const counter = { value: 0 };
-      gsap.to(counter, {
-        value: target,
-        duration: 1.6,
-        ease: 'power2.out',
-        snap: { value: 1 },
-        onUpdate: () => {
-          countEl.textContent = Math.round(counter.value).toLocaleString('ja-JP');
-        },
-        scrollTrigger: {
-          trigger: countEl,
-          start: 'top 86%',
-          once: true
-        }
+      ScrollTrigger.create({
+        trigger: countEl,
+        start: 'top 86%',
+        once: true,
+        onEnter: () => countUp(countEl, 1.6)
       });
     });
   }
@@ -2849,17 +2915,19 @@ function initGSAP() {
     .to('#unityFinale', { backgroundColor: unityFinalBg, ease: 'none' }, .72)
     .to('#unityFinale p', { opacity: 1, y: 0, ease: 'power3.out' }, .76);
 
-  // Why パララックス
-  gsap.to('#whyBg', {
-    xPercent: 10,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.section-why',
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: 1
-    }
-  });
+  // Why パララックス（セクションがある場合のみ）
+  if (document.querySelector('.section-why')) {
+    gsap.to('#whyBg', {
+      xPercent: 10,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.section-why',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+  }
 
   // Final CTA background text
   gsap.to('#finalBg', {
