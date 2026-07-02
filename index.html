@@ -118,6 +118,7 @@ a{color:inherit;text-decoration:none}
 }
 .hero-title-line{
   display:block;
+  white-space:nowrap;
   transform:translateY(110%);
 }
 .hero-en{
@@ -175,6 +176,16 @@ a{color:inherit;text-decoration:none}
   50%{transform:scaleY(1);transform-origin:top}
   50.01%{transform:scaleY(1);transform-origin:bottom}
   100%{transform:scaleY(0);transform-origin:bottom}
+}
+@media(max-width:520px){
+  .hero-content{
+    padding:40px 32px;
+  }
+  .hero-title{
+    font-size:clamp(40px,11.2vw,44px);
+    line-height:1.12;
+    letter-spacing:0;
+  }
 }
 
 /* ===== BTN ===== */
@@ -615,36 +626,28 @@ a{color:inherit;text-decoration:none}
   text-shadow:0 2px 18px rgba(0,0,0,.55);
 }
 .kurukuru-photo.is-product{
-  width:min(36vw,430px);
-  height:clamp(320px,42vw,540px);
-  right:4vw;
+  width:min(38vw,460px);
+  height:clamp(360px,45vw,610px);
+  right:2vw;
   top:0;
   transform:rotate(-2deg);
   background:#fff;
 }
 .kurukuru-photo.is-room{
-  width:min(58vw,720px);
-  height:clamp(300px,38vw,500px);
+  width:min(62vw,760px);
+  height:clamp(290px,34vw,470px);
   left:-4vw;
-  top:clamp(170px,18vw,260px);
+  top:clamp(250px,25vw,330px);
   transform:rotate(1.4deg);
   z-index:2;
 }
 .kurukuru-photo.is-artist{
-  width:min(42vw,520px);
-  height:clamp(300px,40vw,520px);
-  right:0;
-  top:clamp(440px,50vw,590px);
+  width:min(48vw,600px);
+  height:clamp(300px,42vw,520px);
+  right:-2vw;
+  top:clamp(520px,56vw,670px);
   transform:rotate(2.5deg);
   z-index:3;
-}
-.kurukuru-photo.is-people{
-  width:min(34vw,420px);
-  height:clamp(250px,32vw,420px);
-  left:7vw;
-  bottom:0;
-  transform:rotate(-3deg);
-  z-index:4;
 }
 .kurukuru-final{
   position:relative;
@@ -672,37 +675,39 @@ a{color:inherit;text-decoration:none}
     min-height:980px;
   }
   .kurukuru-photo.is-product{
-    width:56vw;
+    width:58vw;
     right:-2vw;
   }
   .kurukuru-photo.is-room{
     width:86vw;
     left:-6vw;
-    top:260px;
+    top:330px;
   }
   .kurukuru-photo.is-artist{
-    width:68vw;
+    width:72vw;
     right:-4vw;
-    top:560px;
-  }
-  .kurukuru-photo.is-people{
-    width:58vw;
-    left:0;
+    top:640px;
   }
 }
 @media(max-width:520px){
   .kurukuru-gallery{
     min-height:820px;
+    overflow:hidden;
   }
   .kurukuru-photo.is-product{
-    width:70vw;
+    width:78vw;
+    right:2vw;
+    top:0;
   }
-  .kurukuru-photo.is-room,
+  .kurukuru-photo.is-room{
+    width:94vw;
+    left:0;
+    top:260px;
+  }
   .kurukuru-photo.is-artist{
-    width:90vw;
-  }
-  .kurukuru-photo.is-people{
-    width:68vw;
+    width:86vw;
+    right:0;
+    top:560px;
   }
 }
 
@@ -1032,11 +1037,33 @@ a{color:inherit;text-decoration:none}
   .unity-title{
     font-size:clamp(28px,9vw,42px);
   }
+  .journey-title{
+    font-size:30px;
+  }
+  .journey-title span{
+    white-space:nowrap;
+  }
+  .journey-copy .mask-line{
+    font-size:clamp(25px,6.9vw,30px);
+    line-height:1.45;
+  }
+  .journey-copy .mask-line span{
+    white-space:nowrap;
+  }
   .acrylic-grid{
     grid-template-columns:repeat(8,1fr);
   }
   .unity-installation-photo{
     width:92vw;
+    opacity:1;
+    filter:brightness(.92);
+    box-shadow:0 18px 46px rgba(0,0,0,.12);
+  }
+  .unity-installation-photo img{
+    transform:scale(1.02);
+  }
+  .unity-finale{
+    background:rgba(17,17,17,.34);
   }
 }
 
@@ -1382,7 +1409,7 @@ a{color:inherit;text-decoration:none}
         プロのアーティストが、<br>
         子どもや障がいのある人たちと<br>
         同じ空間に作品を置く。<br>
-        その並びにこそ、この展覧会の意味がある。
+        その並びにこそ、このアート展の意味がある。
       </p>
     </div>
   </div>
@@ -1398,11 +1425,11 @@ a{color:inherit;text-decoration:none}
       <h2 class="vantan-title reveal">キービジュアルは、<br>未来のクリエイターたちと。</h2>
       <div class="vantan-body reveal">
         <p>100人のアーティスト展 2026夏のキービジュアル制作には、<br>バンタンの生徒の皆さんが協力してくれました。</p>
-        <p>展覧会のテーマである<br>「私の大事」をもとに、</p>
+        <p>アート展のテーマである<br>「私の大事」をもとに、</p>
         <p>一人ひとりが感じた世界を、<br>ポスターとして表現。</p>
-        <p>完成したビジュアルだけでなく、<br>そこに至るまでのアイデア、<br>迷い、挑戦、選ばれなかった案にも、<br>この展覧会らしい表現が宿っています。</p>
+        <p>完成したビジュアルだけでなく、<br>そこに至るまでのアイデア、<br>迷い、挑戦、選ばれなかった案にも、<br>このアート展らしい表現が宿っています。</p>
         <p>このキービジュアルは、<br>学生たちの感性と、<br>100人のアーティスト展の想いが重なって生まれたものです。</p>
-        <p class="vantan-note">この展覧会は、<br>作品を展示するだけでなく、<br>未来のクリエイターが、<br>社会とつながるきっかけにもなっています。</p>
+        <p class="vantan-note">このアート展は、<br>作品を展示するだけでなく、<br>未来のクリエイターが、<br>社会とつながるきっかけにもなっています。</p>
       </div>
     </div>
     <div class="vantan-collage" aria-label="バンタン キービジュアル制作風景">
@@ -1440,39 +1467,33 @@ a{color:inherit;text-decoration:none}
       <div class="kurukuru-kicker reveal">PROJECT</div>
       <h2 class="kurukuru-title reveal">風は見えない。<br><br>でも、<br>そこにある。</h2>
       <div class="kurukuru-lead reveal">
-        <p>100人のアーティスト展が<br>「表現すること」に光を当てる活動なら、</p>
-        <p>くるくるは、<br>「日常の中でアートを感じること」<br>を届けるプロジェクトです。</p>
+        <p>間田デザインの「くるくる」は、<br>風の流れを可視化するインテリアでありながら、<br>そこには一つのストーリーがあります。</p>
+        <p>闘病中のおばぁちゃんと共に制作し、<br>誰かの希望や力になる形で、<br>世の中に届けてきたプロダクトです。</p>
       </div>
       <div class="kurukuru-body reveal">
-        <p>風を可視化するインテリアアート<br>「くるくる」。</p>
-        <p>風という目には見えない存在を、<br>ゆっくりと回る動きへ変え、</p>
-        <p>暮らしの中に、<br>穏やかな時間を生み出します。</p>
-        <p>この作品は、<br>障がいのあるアーティストと共に制作されています。</p>
-        <p>一つひとつ手作業で生まれる作品には、<br>それぞれ違う個性があり、<br>同じものは一つとしてありません。</p>
-        <p>私たちが届けたいのは、<br>作品そのものではなく、</p>
-        <p><strong>「表現には、誰にでも価値がある。」</strong></p>
-        <p>という考え方です。</p>
-        <p>100人のアーティスト展も、<br>くるくるも、</p>
-        <p>その想いから生まれています。</p>
+        <p><strong>このコラボで実現したいこと。</strong></p>
+        <p>くるくるは、<br>目に見えないものを可視化した装置です。</p>
+        <p>100人のアーティスト展の目的は、<br>日本の豊かさや幸福度の高さに、<br>各自が気づくこと。</p>
+        <p>そのためには、<br>目に見えないもの、<br>当たり前のものに気づく<br>必要があると考えます。</p>
+        <p>今回のテーマ「わたしの大事」は、<br>その当たり前のものに気づく<br>きっかけになればと思います。</p>
+        <p>また、ものづくりを通して<br>福祉や社会課題に向き合い、</p>
+        <p>「障がい」や「立場」といった枠を超えて、<br>一人ひとりの表現や可能性に<br>光を当てている点も、</p>
+        <p>私たちの理念と重なっています。</p>
       </div>
     </div>
     <div class="kurukuru-gallery" aria-label="くるくるプロジェクト写真">
       <!-- 写真差し替え: srcとfigcaptionを変更してください -->
       <figure class="kurukuru-photo is-product">
-        <img src="kurukuru/kurukuru-color-02.jpg" alt="くるくる単体" loading="lazy">
+        <img src="kurukuru/kurukuru-product.jpg" alt="くるくる単体" loading="lazy">
         <figcaption>KURUKURU</figcaption>
       </figure>
       <figure class="kurukuru-photo is-room">
-        <img src="kurukuru/kurukuru-room.png" alt="暮らしの中で飾られているくるくる" loading="lazy">
+        <img src="kurukuru/kurukuru-people-pair.jpg" alt="くるくるプロジェクトに関わる人たち" loading="lazy">
         <figcaption>IN DAILY LIFE</figcaption>
       </figure>
       <figure class="kurukuru-photo is-artist">
         <img src="kurukuru/kurukuru-artist.jpg" alt="障がいのあるアーティストとの制作風景" loading="lazy">
         <figcaption>WITH ARTIST</figcaption>
-      </figure>
-      <figure class="kurukuru-photo is-people">
-        <img src="kurukuru/kurukuru-people.jpg" alt="制作に関わる人たち" loading="lazy">
-        <figcaption>ART for BEING</figcaption>
       </figure>
     </div>
   </div>
@@ -1487,7 +1508,7 @@ a{color:inherit;text-decoration:none}
   <div class="journey-grid">
     <div class="journey-visual">
       <div class="journey-kicker reveal">AFTER EXHIBITION</div>
-      <h2 class="journey-title reveal">100人のアートは、<br>ここで終わりません。</h2>
+      <h2 class="journey-title reveal"><span>100人のアートは、</span><br><span>ここで終わりません。</span></h2>
       <div class="journey-photo-field">
         <!-- 画像差し替え: srcを展示先ごとの写真に変更してください -->
         <figure class="journey-photo is-base">
@@ -1505,7 +1526,7 @@ a{color:inherit;text-decoration:none}
       </div>
     </div>
     <div class="journey-copy">
-      <h2 class="mask-line">100人のアーティスト展は<br>3日間だけでは終わらない。</h2>
+      <h2 class="mask-line"><span>100人のアーティスト展は</span><br><span>3日間だけでは</span><br><span>終わらない。</span></h2>
       <p>100人のアーティスト展終了後、<br>作品はONE BUILDING内の蔦屋書店、<br>そしてプリンスホテルももち浜へ展示されます。</p>
       <p>本を探しに来た人。<br>旅の途中で立ち寄った人。<br>偶然その場を訪れた人。</p>
       <p>あなたの大事を見て、<br>「当たり前」のものに気づき、<br>それは今「有るもの」に目を向ける<br>きっかけになります。</p>
@@ -1559,7 +1580,7 @@ a{color:inherit;text-decoration:none}
       <p class="reveal">誰かの表現が、<br><strong>誰かの勇気になることがあります。</strong></p>
       <p class="reveal">子どもが描いた一枚に、<br>大人が立ち止まることがあります。</p>
       <p class="reveal">言葉にできなかった想いが、絵になった瞬間、<br>誰かに届くことがあります。</p>
-      <p class="reveal big">この展覧会は、<br>そんな<strong>小さな奇跡</strong>が<br>生まれる場所です。</p>
+      <p class="reveal big">このアート展は、<br>そんな<strong>小さな奇跡</strong>が<br>生まれる場所です。</p>
     </div>
   </div>
 </section>
@@ -1568,7 +1589,7 @@ a{color:inherit;text-decoration:none}
 <section class="section-sponsor" id="sponsor">
   <div class="sponsor-num">SUPPORT</div>
   <h2 class="sponsor-heading reveal">
-    この展覧会を、<br>一緒につくる人を<br>募集しています。
+    このアート展を、<br>一緒につくる人を<br>募集しています。
   </h2>
   <div class="sponsor-line" id="sponsorLine"></div>
   <div class="sponsor-body reveal">
@@ -1966,6 +1987,14 @@ function initGSAP() {
   });
 
   // Unity: 100が消え、その奥から100個の作品が現れる
+  const unityMobile = window.matchMedia('(max-width: 520px)').matches;
+  const unityPhotoFinal = unityMobile
+    ? { scale: .98, opacity: 1, filter: 'brightness(1)' }
+    : { scale: .9, opacity: .42, filter: 'brightness(.35)' };
+  const unityGridFinal = unityMobile
+    ? { scale: .92, opacity: .18, filter: 'brightness(.82)' }
+    : { scale: .82, opacity: .16, filter: 'brightness(.45)' };
+  const unityFinalBg = unityMobile ? 'rgba(17,17,17,.28)' : 'rgba(17,17,17,.88)';
   const unityTl = gsap.timeline({
     scrollTrigger: {
       trigger: '.section-unity',
@@ -1993,9 +2022,9 @@ function initGSAP() {
       .16
     )
     .to('.unity-copy', { y: -80, opacity: 0, ease: 'power2.inOut' }, .62)
-    .to('.unity-installation-photo', { scale: .9, opacity: .42, filter: 'brightness(.35)', ease: 'power2.inOut' }, .66)
-    .to('.acrylic-grid', { scale: .82, opacity: .16, filter: 'brightness(.45)', ease: 'power2.inOut' }, .68)
-    .to('#unityFinale', { backgroundColor: 'rgba(17,17,17,.88)', ease: 'none' }, .72)
+    .to('.unity-installation-photo', { ...unityPhotoFinal, ease: 'power2.inOut' }, .66)
+    .to('.acrylic-grid', { ...unityGridFinal, ease: 'power2.inOut' }, .68)
+    .to('#unityFinale', { backgroundColor: unityFinalBg, ease: 'none' }, .72)
     .to('#unityFinale p', { opacity: 1, y: 0, ease: 'power3.out' }, .76);
 
   // Why パララックス
