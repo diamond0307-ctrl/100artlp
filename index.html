@@ -1,0 +1,2083 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100人のアーティスト展 2026夏 | ART BASE kmy</title>
+<meta name="description" content="2026年8月1日〜3日、福岡・博多。100人の表現が、街にあふれ出す。">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+
+<!-- GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+/* ===== RESET ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:#111;
+  color:#111;
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:400;
+  overflow-x:hidden;
+  cursor:none;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+
+/* ===== CURSOR ===== */
+#cursor{
+  position:fixed;
+  width:12px;height:12px;
+  background:#FF3B00;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,background .2s;
+  mix-blend-mode:multiply;
+}
+#cursor.big{width:40px;height:40px;}
+
+/* ===== NAV ===== */
+.nav{
+  position:fixed;top:0;left:0;right:0;
+  z-index:100;
+  padding:20px 32px;
+  display:flex;align-items:center;justify-content:flex-end;
+  mix-blend-mode:difference;
+}
+.nav-links{
+  display:flex;gap:28px;list-style:none;
+}
+.nav-links a{
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#fff;
+  transition:opacity .2s;
+}
+.nav-links a:hover{opacity:.5}
+@media(max-width:640px){.nav{padding:16px 20px}.nav-links{display:none}}
+
+/* ===== HERO ===== */
+.hero{
+  position:relative;
+  height:100svh;
+  min-height:600px;
+  overflow:hidden;
+  background:#111;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  will-change:transform;
+}
+.hero-bg img{
+  width:100%;height:100%;
+  object-fit:cover;
+  opacity:.7;
+  transform-origin:center;
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(0,0,0,.15) 0%,rgba(0,0,0,.5) 100%);
+}
+
+/* 巨大背景テキスト */
+.hero-bg-text{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(140px,22vw,340px);
+  color:rgba(255,255,255,.04);
+  white-space:nowrap;
+  line-height:1;
+  pointer-events:none;
+  will-change:transform;
+  user-select:none;
+}
+
+.hero-content{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  padding:clamp(40px,6vw,80px);
+}
+.hero-title{
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:900;
+  font-size:clamp(52px,9vw,130px);
+  line-height:1.05;
+  color:#fff;
+  letter-spacing:-.02em;
+  overflow:hidden;
+}
+.hero-title-line{
+  display:block;
+  transform:translateY(110%);
+}
+.hero-en{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(18px,2.5vw,32px);
+  color:rgba(255,255,255,.5);
+  letter-spacing:.25em;
+  margin-bottom:clamp(16px,3vw,32px);
+  transform:translateY(30px);
+  opacity:0;
+}
+.hero-catch{
+  font-size:clamp(15px,1.8vw,22px);
+  color:rgba(255,255,255,.85);
+  font-weight:300;
+  margin-bottom:clamp(24px,4vw,48px);
+  transform:translateY(30px);
+  opacity:0;
+}
+.hero-meta{
+  display:flex;flex-wrap:wrap;gap:12px 32px;
+  font-size:clamp(12px,1.2vw,14px);
+  color:rgba(255,255,255,.55);
+  letter-spacing:.05em;
+  margin-bottom:clamp(28px,4vw,48px);
+  transform:translateY(20px);
+  opacity:0;
+}
+.hero-ctas{
+  display:flex;gap:12px;flex-wrap:wrap;
+  transform:translateY(20px);
+  opacity:0;
+}
+
+/* scroll hint */
+.hero-scroll{
+  position:absolute;
+  bottom:clamp(24px,4vw,40px);
+  right:clamp(24px,4vw,40px);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  transform:translateY(20px);opacity:0;
+}
+.hero-scroll span{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:11px;letter-spacing:.25em;color:rgba(255,255,255,.4);
+  writing-mode:vertical-lr;
+}
+.hero-scroll-line{
+  width:1px;height:50px;
+  background:linear-gradient(to bottom,rgba(255,255,255,.4),transparent);
+  animation:scrollLine 2s ease infinite;
+}
+@keyframes scrollLine{
+  0%{transform:scaleY(0);transform-origin:top}
+  50%{transform:scaleY(1);transform-origin:top}
+  50.01%{transform:scaleY(1);transform-origin:bottom}
+  100%{transform:scaleY(0);transform-origin:bottom}
+}
+
+/* ===== BTN ===== */
+.btn{
+  display:inline-block;
+  padding:14px 36px;
+  font-size:13px;
+  letter-spacing:.12em;
+  font-weight:700;
+  cursor:none;
+  transition:transform .25s,box-shadow .25s,background .2s,color .2s;
+  border:none;
+  border-radius:0;
+}
+.btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.btn-dark{background:#111;color:#f5f0e8}
+.btn-outline{background:transparent;color:#f5f0e8;border:1.5px solid rgba(255,255,255,.5)}
+.btn-outline:hover{background:#f5f0e8;color:#111}
+.btn-red{background:#111;color:#fff}
+.btn-red:hover{background:#fff;color:#FF3B00;animation:shake .4s ease}
+@keyframes shake{
+  0%,100%{transform:translateY(-3px) rotate(0deg)}
+  20%{transform:translateY(-3px) rotate(-1deg)}
+  40%{transform:translateY(-3px) rotate(1.5deg)}
+  60%{transform:translateY(-3px) rotate(-.5deg)}
+  80%{transform:translateY(-3px) rotate(1deg)}
+}
+
+/* ===== SECTION: INTRO ===== */
+.section-intro{
+  padding:clamp(80px,12vw,180px) clamp(24px,6vw,80px);
+  background:#FF3B00;
+  position:relative;
+  overflow:hidden;
+}
+.intro-counter{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(160px,28vw,400px);
+  line-height:.85;
+  color:rgba(0,0,0,.28);
+  position:relative;
+  z-index:1;
+  transform:translateX(-5%);
+  will-change:transform;
+  user-select:none;
+}
+.intro-text{
+  max-width:640px;
+  margin-left:auto;
+  position:relative;
+  z-index:2;
+  margin-top:-clamp(20px,4vw,60px);
+}
+.intro-text p{
+  font-size:clamp(18px,2.5vw,30px);
+  line-height:2;
+  font-weight:400;
+  color:#fff;
+}
+.intro-text p+p{margin-top:1em}
+.intro-text em{
+  font-style:normal;
+  color:#fff;
+  font-weight:700;
+}
+.intro-accent-line{
+  width:0;height:3px;
+  background:#fff;
+  margin-bottom:32px;
+}
+
+/* ===== SECTION: PEOPLE (横長3段) ===== */
+.section-people{
+  background:#FF3B00;
+  overflow:hidden;
+}
+.people-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:clamp(280px,40vw,560px);
+  border-top:1px solid rgba(255,255,255,.22);
+  overflow:hidden;
+}
+.people-row:last-child{border-bottom:1px solid rgba(255,255,255,.22)}
+.people-row.rev{direction:rtl}
+.people-row.rev > *{direction:ltr}
+.people-row.text-only{grid-template-columns:minmax(0,1fr)}
+.people-row.text-only .people-text{min-height:clamp(280px,34vw,460px)}
+.people-row.image-only{grid-template-columns:minmax(0,1fr)}
+.people-row.image-only .people-img{min-height:clamp(320px,44vw,620px)}
+
+.people-img{
+  overflow:hidden;
+  position:relative;
+}
+.people-img img,
+.people-slide{
+  width:100%;height:100%;
+  object-fit:cover;
+  transition:transform .8s ease;
+}
+.people-row:hover .people-img img,
+.people-row:hover .people-slide{transform:scale(1.04)}
+.people-slider{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  background:#111;
+}
+.people-slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transform:scale(1.06);
+  transition:opacity 1.2s ease,transform 6s ease;
+}
+.people-slide.is-active{
+  opacity:1;
+  transform:scale(1);
+}
+
+.people-text{
+  padding:clamp(40px,6vw,80px);
+  display:flex;flex-direction:column;
+  justify-content:center;
+  background:#FF3B00;
+  position:relative;
+}
+.people-title{
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:900;
+  font-size:clamp(22px,3vw,40px);
+  line-height:1.4;
+  margin-bottom:clamp(16px,2vw,28px);
+  color:#fff;
+}
+#pr1 .people-title{color:#111}
+.people-body{
+  font-size:clamp(14px,1.3vw,17px);
+  line-height:2;
+  color:rgba(255,255,255,.82);
+  max-width:420px;
+}
+.people-accent{
+  position:absolute;
+  top:0;left:0;
+  width:4px;height:0;
+  transition:height .8s ease;
+}
+.people-row:nth-child(1) .people-accent{background:#fff}
+.people-row:nth-child(2) .people-accent{background:#fff}
+.people-row:nth-child(3) .people-accent{background:#fff}
+.people-row.in-view .people-accent{height:100%}
+
+@media(max-width:768px){
+  .people-row{grid-template-columns:1fr;direction:ltr!important}
+  .people-row.rev .people-img{order:-1}
+  .people-img{min-height:260px}
+  .people-text{padding:40px 24px}
+}
+
+/* ===== SECTION: VANTAN COLLABORATION ===== */
+.section-vantan{
+  background:#fff;
+  color:#111;
+  padding:clamp(88px,13vw,180px) clamp(24px,6vw,80px);
+  position:relative;
+  overflow:hidden;
+}
+.vantan-bg-word{
+  position:absolute;
+  top:clamp(28px,5vw,72px);
+  left:-6vw;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(110px,20vw,300px);
+  line-height:.82;
+  letter-spacing:-.02em;
+  color:rgba(0,0,0,.045);
+  white-space:nowrap;
+  pointer-events:none;
+  user-select:none;
+  will-change:transform;
+}
+.vantan-inner{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:minmax(320px,520px) minmax(0,1fr);
+  gap:clamp(48px,8vw,120px);
+  align-items:start;
+}
+.vantan-kicker{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(14px,1.5vw,18px);
+  letter-spacing:.28em;
+  color:#FF3B00;
+  margin-bottom:clamp(20px,3vw,36px);
+}
+.vantan-title{
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:900;
+  font-size:clamp(34px,6vw,82px);
+  line-height:1.25;
+  margin-bottom:clamp(28px,4vw,48px);
+}
+.vantan-body{
+  font-size:clamp(15px,1.45vw,18px);
+  line-height:2.05;
+  color:#333;
+  max-width:560px;
+}
+.vantan-body p+p{margin-top:1.25em}
+.vantan-note{
+  margin-top:clamp(36px,5vw,64px);
+  padding-left:20px;
+  border-left:3px solid #FF3B00;
+  font-weight:900;
+  color:#111;
+}
+.vantan-collage{
+  position:relative;
+  min-height:clamp(720px,82vw,980px);
+}
+.vantan-photo{
+  position:absolute;
+  overflow:hidden;
+  background:#111;
+  box-shadow:0 24px 60px rgba(0,0,0,.18);
+  transition:transform .45s ease;
+  will-change:transform;
+}
+.vantan-photo:hover{transform:rotate(0deg) translateY(-8px)!important}
+.vantan-photo img{
+  width:100%;height:100%;
+  object-fit:cover;
+  transform:scale(1.06);
+  will-change:transform;
+}
+.vantan-photo figcaption{
+  position:absolute;
+  left:16px;
+  bottom:14px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(13px,1.4vw,20px);
+  letter-spacing:.16em;
+  color:#fff;
+  text-shadow:0 2px 18px rgba(0,0,0,.55);
+}
+.vantan-photo.is-competition{
+  width:min(42vw,520px);
+  height:clamp(260px,34vw,440px);
+  left:0;
+  top:clamp(20px,4vw,60px);
+  transform:rotate(-3deg);
+  z-index:2;
+}
+.vantan-photo.is-process{
+  width:min(34vw,420px);
+  height:clamp(240px,30vw,390px);
+  right:0;
+  top:0;
+  transform:rotate(4deg);
+  z-index:1;
+}
+.vantan-photo.is-review{
+  width:min(40vw,500px);
+  height:clamp(250px,32vw,420px);
+  left:8%;
+  top:clamp(310px,36vw,420px);
+  transform:rotate(2deg);
+  z-index:3;
+}
+.vantan-photo.is-keyvisual{
+  width:min(58vw,720px);
+  height:clamp(330px,42vw,560px);
+  right:-5vw;
+  bottom:0;
+  transform:rotate(-1deg);
+  z-index:4;
+}
+.vantan-photo.is-keyvisual::after{
+  content:"ADOPTED KEY VISUAL";
+  position:absolute;
+  top:16px;
+  right:16px;
+  padding:8px 12px;
+  background:#FF3B00;
+  color:#fff;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(12px,1.2vw,16px);
+  letter-spacing:.14em;
+}
+
+@media(max-width:900px){
+  .vantan-inner{
+    grid-template-columns:1fr;
+  }
+  .vantan-collage{
+    min-height:920px;
+  }
+  .vantan-photo.is-competition{
+    width:72vw;
+    left:-4vw;
+  }
+  .vantan-photo.is-process{
+    width:54vw;
+    right:-4vw;
+    top:120px;
+  }
+  .vantan-photo.is-review{
+    width:68vw;
+    left:4vw;
+    top:410px;
+  }
+  .vantan-photo.is-keyvisual{
+    width:82vw;
+    right:-2vw;
+  }
+}
+@media(max-width:520px){
+  .vantan-collage{
+    min-height:760px;
+  }
+  .vantan-photo figcaption{
+    left:12px;
+    bottom:10px;
+  }
+  .vantan-photo.is-competition,
+  .vantan-photo.is-review,
+  .vantan-photo.is-keyvisual{
+    width:88vw;
+  }
+  .vantan-photo.is-process{
+    width:62vw;
+  }
+}
+
+/* ===== SECTION: KURUKURU PROJECT ===== */
+.section-kurukuru{
+  background:#111;
+  color:#fff;
+  padding:clamp(88px,13vw,180px) clamp(24px,6vw,80px);
+  position:relative;
+  overflow:hidden;
+}
+.kurukuru-wind{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.kurukuru-wind span{
+  position:absolute;
+  left:-20vw;
+  width:42vw;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.26),transparent);
+  opacity:.45;
+  will-change:transform;
+}
+.kurukuru-wind span:nth-child(1){top:18%}
+.kurukuru-wind span:nth-child(2){top:42%;width:56vw;opacity:.32}
+.kurukuru-wind span:nth-child(3){top:72%;width:48vw;opacity:.24}
+.kurukuru-bg-word{
+  position:absolute;
+  right:-6vw;
+  top:clamp(40px,7vw,100px);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(120px,22vw,340px);
+  line-height:.85;
+  color:rgba(255,255,255,.045);
+  white-space:nowrap;
+  pointer-events:none;
+  user-select:none;
+  will-change:transform;
+}
+.kurukuru-inner{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:minmax(320px,560px) minmax(0,1fr);
+  gap:clamp(48px,8vw,120px);
+  align-items:start;
+}
+.kurukuru-kicker{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(14px,1.5vw,18px);
+  letter-spacing:.28em;
+  color:#FF3B00;
+  margin-bottom:clamp(20px,3vw,36px);
+}
+.kurukuru-title{
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:900;
+  font-size:clamp(38px,7vw,96px);
+  line-height:1.22;
+  margin-bottom:clamp(32px,5vw,64px);
+}
+.kurukuru-lead,
+.kurukuru-body{
+  font-size:clamp(15px,1.45vw,18px);
+  line-height:2.05;
+  color:rgba(255,255,255,.78);
+}
+.kurukuru-lead{
+  margin-bottom:clamp(32px,5vw,56px);
+}
+.kurukuru-body p+p{margin-top:1.15em}
+.kurukuru-body strong{
+  color:#fff;
+  font-size:1.15em;
+}
+.kurukuru-gallery{
+  position:relative;
+  min-height:clamp(760px,90vw,1080px);
+}
+.kurukuru-photo{
+  position:absolute;
+  overflow:hidden;
+  background:#222;
+  box-shadow:0 28px 70px rgba(0,0,0,.32);
+  will-change:transform;
+}
+.kurukuru-photo img{
+  width:100%;height:100%;
+  object-fit:cover;
+  transform:scale(1.05);
+  will-change:transform;
+}
+.kurukuru-photo figcaption{
+  position:absolute;
+  left:16px;
+  bottom:14px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(13px,1.4vw,20px);
+  letter-spacing:.16em;
+  color:#fff;
+  text-shadow:0 2px 18px rgba(0,0,0,.55);
+}
+.kurukuru-photo.is-product{
+  width:min(36vw,430px);
+  height:clamp(320px,42vw,540px);
+  right:4vw;
+  top:0;
+  transform:rotate(-2deg);
+  background:#fff;
+}
+.kurukuru-photo.is-room{
+  width:min(58vw,720px);
+  height:clamp(300px,38vw,500px);
+  left:-4vw;
+  top:clamp(170px,18vw,260px);
+  transform:rotate(1.4deg);
+  z-index:2;
+}
+.kurukuru-photo.is-artist{
+  width:min(42vw,520px);
+  height:clamp(300px,40vw,520px);
+  right:0;
+  top:clamp(440px,50vw,590px);
+  transform:rotate(2.5deg);
+  z-index:3;
+}
+.kurukuru-photo.is-people{
+  width:min(34vw,420px);
+  height:clamp(250px,32vw,420px);
+  left:7vw;
+  bottom:0;
+  transform:rotate(-3deg);
+  z-index:4;
+}
+.kurukuru-final{
+  position:relative;
+  z-index:2;
+  margin-top:clamp(60px,9vw,120px);
+  min-height:45vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.kurukuru-final p{
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:900;
+  font-size:clamp(38px,8vw,108px);
+  line-height:1.35;
+  color:#fff;
+}
+
+@media(max-width:900px){
+  .kurukuru-inner{
+    grid-template-columns:1fr;
+  }
+  .kurukuru-gallery{
+    min-height:980px;
+  }
+  .kurukuru-photo.is-product{
+    width:56vw;
+    right:-2vw;
+  }
+  .kurukuru-photo.is-room{
+    width:86vw;
+    left:-6vw;
+    top:260px;
+  }
+  .kurukuru-photo.is-artist{
+    width:68vw;
+    right:-4vw;
+    top:560px;
+  }
+  .kurukuru-photo.is-people{
+    width:58vw;
+    left:0;
+  }
+}
+@media(max-width:520px){
+  .kurukuru-gallery{
+    min-height:820px;
+  }
+  .kurukuru-photo.is-product{
+    width:70vw;
+  }
+  .kurukuru-photo.is-room,
+  .kurukuru-photo.is-artist{
+    width:90vw;
+  }
+  .kurukuru-photo.is-people{
+    width:68vw;
+  }
+}
+
+/* ===== SECTION: ART JOURNEY ===== */
+.section-journey{
+  background:#111;
+  color:#fff;
+  min-height:120vh;
+  padding:clamp(88px,13vw,180px) clamp(24px,6vw,80px);
+  position:relative;
+  overflow:hidden;
+}
+.journey-bg-word{
+  position:absolute;
+  top:clamp(40px,8vw,120px);
+  left:-4vw;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(150px,28vw,420px);
+  line-height:.8;
+  letter-spacing:-.03em;
+  color:rgba(255,255,255,.045);
+  white-space:nowrap;
+  pointer-events:none;
+  user-select:none;
+  will-change:transform;
+}
+.journey-grid{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(320px,520px);
+  gap:clamp(48px,8vw,120px);
+  align-items:start;
+}
+.journey-kicker,
+.unity-kicker{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(14px,1.5vw,18px);
+  letter-spacing:.28em;
+  color:#FF3B00;
+  margin-bottom:clamp(20px,3vw,36px);
+}
+.journey-title,
+.unity-title{
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:900;
+  font-size:clamp(34px,6vw,88px);
+  line-height:1.22;
+  letter-spacing:0;
+}
+.journey-photo-field{
+  position:relative;
+  min-height:clamp(520px,72vw,900px);
+  margin-top:clamp(36px,8vw,110px);
+}
+.journey-photo{
+  position:absolute;
+  overflow:hidden;
+  background:#222;
+  will-change:transform;
+}
+.journey-photo img{
+  width:100%;height:100%;
+  object-fit:cover;
+  transform:scale(1.08);
+  will-change:transform;
+}
+.journey-photo figcaption{
+  position:absolute;
+  left:18px;
+  bottom:16px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(14px,1.6vw,22px);
+  letter-spacing:.14em;
+  color:#fff;
+  text-shadow:0 2px 18px rgba(0,0,0,.45);
+}
+.journey-photo.is-base{
+  width:min(58vw,760px);
+  height:clamp(300px,42vw,560px);
+  left:-8vw;
+  top:0;
+}
+.journey-photo.is-tsutaya{
+  width:min(46vw,560px);
+  height:clamp(260px,35vw,460px);
+  right:4vw;
+  top:clamp(180px,24vw,330px);
+  z-index:2;
+}
+.journey-photo.is-prince{
+  width:min(62vw,820px);
+  height:clamp(280px,38vw,520px);
+  left:8vw;
+  bottom:0;
+  z-index:1;
+}
+.journey-copy{
+  position:sticky;
+  top:clamp(72px,10vw,120px);
+}
+.journey-copy h2{
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:900;
+  font-size:clamp(25px,3.6vw,48px);
+  line-height:1.45;
+  margin-bottom:clamp(28px,4vw,48px);
+}
+.journey-copy p{
+  font-size:clamp(15px,1.45vw,18px);
+  line-height:2.15;
+  color:rgba(255,255,255,.78);
+}
+.journey-copy p+p{margin-top:1.4em}
+.journey-timeline{
+  margin-top:clamp(40px,6vw,72px);
+  position:relative;
+  padding-left:28px;
+}
+.journey-line,
+.journey-line-fill{
+  position:absolute;
+  left:5px;
+  top:4px;
+  width:1px;
+  height:calc(100% - 8px);
+}
+.journey-line{background:rgba(255,255,255,.22)}
+.journey-line-fill{
+  height:0;
+  background:#FF3B00;
+  transform-origin:top;
+}
+.journey-step{
+  position:relative;
+  padding-bottom:clamp(22px,3vw,36px);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(22px,3vw,40px);
+  letter-spacing:.08em;
+  color:rgba(255,255,255,.38);
+}
+.journey-step:last-child{padding-bottom:0}
+.journey-step small{
+  display:block;
+  margin-top:6px;
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:clamp(12px,1.2vw,15px);
+  font-weight:700;
+  letter-spacing:.08em;
+  color:rgba(255,255,255,.52);
+}
+.journey-step.is-active small{color:rgba(255,255,255,.78)}
+.journey-step::before{
+  content:"";
+  position:absolute;
+  left:-27px;
+  top:.42em;
+  width:11px;height:11px;
+  border-radius:50%;
+  background:#111;
+  border:1px solid rgba(255,255,255,.38);
+  transition:background .4s,border-color .4s,transform .4s;
+}
+.journey-step.is-active{
+  color:#fff;
+}
+.journey-step.is-active::before{
+  background:#FF3B00;
+  border-color:#FF3B00;
+  transform:scale(1.25);
+}
+
+/* ===== SECTION: 100 UNITY ===== */
+.section-unity{
+  background:#fff;
+  color:#111;
+  position:relative;
+  overflow:hidden;
+}
+.unity-pin{
+  position:relative;
+  min-height:145vh;
+  padding:clamp(88px,13vw,180px) clamp(24px,6vw,80px);
+}
+.unity-bg-number{
+  position:absolute;
+  top:46%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(220px,46vw,720px);
+  line-height:.8;
+  color:rgba(0,0,0,.045);
+  pointer-events:none;
+  user-select:none;
+  will-change:opacity,transform;
+}
+.unity-inner{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:minmax(320px,520px) minmax(0,1fr);
+  gap:clamp(48px,8vw,120px);
+  align-items:center;
+}
+.unity-copy{
+  max-width:540px;
+}
+.unity-title{
+  margin-bottom:clamp(28px,4vw,48px);
+}
+.unity-body p{
+  font-size:clamp(15px,1.45vw,18px);
+  line-height:2.05;
+  color:#333;
+}
+.unity-body p+p{margin-top:1.15em}
+.acrylic-stage{
+  position:relative;
+  min-height:clamp(520px,62vw,760px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.unity-installation-photo{
+  position:absolute;
+  inset:50% auto auto 50%;
+  width:min(70vw,820px);
+  aspect-ratio:1/1;
+  transform:translate(-50%,-50%) scale(.96);
+  overflow:hidden;
+  opacity:0;
+  box-shadow:0 30px 80px rgba(0,0,0,.18);
+  will-change:opacity,transform,filter;
+}
+.unity-installation-photo img{
+  width:100%;height:100%;
+  object-fit:cover;
+  transform:scale(1.06);
+  will-change:transform;
+}
+.acrylic-grid{
+  width:min(64vw,760px);
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:clamp(5px,.8vw,10px);
+  transform:rotate(-2deg);
+  opacity:.1;
+  will-change:opacity,transform;
+}
+.acrylic-block{
+  aspect-ratio:1/1;
+  background:#f4f4f4;
+  border:1px solid rgba(0,0,0,.08);
+  box-shadow:0 18px 34px rgba(0,0,0,.08);
+  overflow:hidden;
+}
+.acrylic-block img{
+  width:100%;height:100%;
+  object-fit:cover;
+  opacity:.88;
+  transform:scale(1.1);
+}
+.unity-finale{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:24px;
+  background:rgba(17,17,17,0);
+  pointer-events:none;
+  z-index:3;
+}
+.unity-finale p{
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:clamp(34px,7vw,96px);
+  font-weight:900;
+  line-height:1.35;
+  color:#fff;
+  opacity:0;
+  transform:translateY(36px);
+}
+
+@media(max-width:900px){
+  .journey-grid,
+  .unity-inner{
+    grid-template-columns:1fr;
+  }
+  .journey-copy{
+    position:relative;
+    top:auto;
+  }
+  .journey-photo-field{
+    min-height:760px;
+  }
+  .journey-photo.is-base{
+    width:88vw;
+    left:-8vw;
+  }
+  .journey-photo.is-tsutaya{
+    width:66vw;
+    right:-6vw;
+  }
+  .journey-photo.is-prince{
+    width:82vw;
+    left:8vw;
+  }
+  .unity-inner{
+    gap:40px;
+  }
+  .acrylic-grid{
+    width:min(92vw,680px);
+  }
+  .unity-installation-photo{
+    width:min(92vw,680px);
+  }
+}
+@media(max-width:520px){
+  .journey-photo-field{
+    min-height:680px;
+  }
+  .journey-copy h2,
+  .unity-title{
+    font-size:clamp(28px,9vw,42px);
+  }
+  .acrylic-grid{
+    grid-template-columns:repeat(8,1fr);
+  }
+  .unity-installation-photo{
+    width:92vw;
+  }
+}
+
+/* ===== SECTION: WHY ===== */
+.section-why{
+  background:#111;
+  padding:clamp(80px,12vw,180px) clamp(24px,6vw,80px);
+  position:relative;
+  overflow:hidden;
+}
+.why-bg-text{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(100px,18vw,280px);
+  color:rgba(255,255,255,.03);
+  white-space:nowrap;
+  pointer-events:none;
+  user-select:none;
+  will-change:transform;
+}
+.why-inner{
+  max-width:760px;
+  position:relative;
+  z-index:2;
+}
+.why-text p{
+  font-size:clamp(18px,2.5vw,30px);
+  line-height:2;
+  color:rgba(255,255,255,.75);
+  font-weight:300;
+}
+.why-text p+p{margin-top:1.5em}
+.why-text strong{color:#FF3B00;font-weight:700;font-style:normal}
+.why-text .big{
+  font-weight:900;
+  font-size:clamp(22px,3.5vw,48px);
+  color:#fff;
+  line-height:1.5;
+}
+
+/* ===== SECTION: SPONSOR ===== */
+.section-sponsor{
+  background:#FF3B00;
+  padding:clamp(80px,12vw,180px) clamp(24px,6vw,80px);
+  position:relative;
+  overflow:hidden;
+}
+.sponsor-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(100px,18vw,260px);
+  color:rgba(0,0,0,.28);
+  line-height:1;
+  margin-bottom:-clamp(24px,4vw,56px);
+  user-select:none;
+  letter-spacing:-.02em;
+}
+.sponsor-heading{
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:900;
+  font-size:clamp(26px,4vw,56px);
+  line-height:1.5;
+  margin-bottom:clamp(24px,3vw,48px);
+  max-width:700px;
+  color:#fff;
+}
+.sponsor-body{
+  font-size:clamp(14px,1.4vw,18px);
+  line-height:2.2;
+  color:rgba(255,255,255,.84);
+  max-width:600px;
+  margin-bottom:clamp(40px,6vw,80px);
+}
+.sponsor-body p+p{margin-top:1em}
+.sponsor-line{
+  width:0;
+  height:1px;
+  background:rgba(255,255,255,.32);
+  margin:clamp(32px,4vw,64px) 0;
+  transition:width 1.2s ease;
+}
+.sponsor-line.visible{width:100%}
+.sponsor-benefits{
+  display:flex;flex-wrap:wrap;gap:16px;
+  margin-bottom:clamp(40px,6vw,64px);
+}
+.benefit-tag{
+  font-size:12px;
+  letter-spacing:.08em;
+  padding:10px 20px;
+  border:1px solid rgba(255,255,255,.42);
+  color:#fff;
+}
+
+/* ===== SECTION: ACCESS ===== */
+.section-access{
+  background:#111;
+  padding:clamp(80px,12vw,180px) clamp(24px,6vw,80px);
+  position:relative;
+  overflow:hidden;
+}
+.access-label{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(14px,1.5vw,18px);
+  letter-spacing:.3em;
+  color:rgba(255,255,255,.3);
+  margin-bottom:clamp(40px,6vw,80px);
+}
+.access-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(40px,6vw,100px);
+  align-items:start;
+}
+@media(max-width:768px){
+  .access-layout{grid-template-columns:1fr}
+}
+.access-heading{
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:900;
+  font-size:clamp(28px,5vw,72px);
+  line-height:1.3;
+  color:#fff;
+  margin-bottom:clamp(32px,4vw,64px);
+}
+.access-heading em{
+  font-style:normal;
+  color:#FF3B00;
+}
+.access-dl dt{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(11px,1.1vw,13px);
+  letter-spacing:.25em;
+  color:rgba(255,255,255,.3);
+  margin-top:28px;
+}
+.access-dl dt:first-child{margin-top:0}
+.access-dl dd{
+  font-size:clamp(15px,1.5vw,18px);
+  color:rgba(255,255,255,.8);
+  line-height:1.7;
+  margin-top:4px;
+}
+.access-map{
+  aspect-ratio:4/3;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  overflow:hidden;
+  border-radius:20px;
+}
+.access-map iframe{
+  width:100%;
+  height:100%;
+  min-height:420px;
+  border:0;
+  display:block;
+}
+
+/* ===== SECTION: FINAL CTA ===== */
+.section-final{
+  background:#FF3B00;
+  padding:clamp(80px,14vw,200px) clamp(24px,6vw,80px);
+  position:relative;
+  overflow:hidden;
+}
+.final-bg{
+  position:absolute;inset:0;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(120px,22vw,340px);
+  color:rgba(255,255,255,.06);
+  display:flex;align-items:center;justify-content:center;
+  line-height:1;
+  pointer-events:none;
+  user-select:none;
+  white-space:nowrap;
+  overflow:hidden;
+  will-change:transform;
+}
+.final-inner{
+  position:relative;
+  z-index:2;
+  max-width:800px;
+}
+.final-heading{
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:900;
+  font-size:clamp(32px,6vw,88px);
+  line-height:1.3;
+  color:#fff;
+  margin-bottom:clamp(32px,5vw,64px);
+}
+.final-meta{
+  font-size:clamp(14px,1.4vw,18px);
+  color:rgba(255,255,255,.7);
+  line-height:2.2;
+  margin-bottom:clamp(40px,6vw,72px);
+}
+.final-ctas{
+  display:flex;gap:12px;flex-wrap:wrap;
+}
+.btn-white{background:#fff;color:#FF3B00;font-weight:700}
+.btn-white:hover{background:#111;color:#fff}
+.btn-outline-white{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
+.btn-outline-white:hover{background:#fff;color:#FF3B00}
+
+/* ===== FOOTER ===== */
+.footer{
+  background:#111;
+  padding:40px clamp(24px,6vw,80px);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.footer-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:16px;
+  letter-spacing:.2em;
+  color:rgba(255,255,255,.3);
+}
+.footer-copy{
+  font-size:11px;
+  color:rgba(255,255,255,.2);
+  letter-spacing:.05em;
+}
+
+/* ===== REVEAL ===== */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal-left.in{opacity:1;transform:none}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal-right.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- カスタムカーソル -->
+<div id="cursor"></div>
+
+<!-- ===== NAV ===== -->
+<nav class="nav">
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#sponsor">Sponsor</a></li>
+    <li><a href="#access">Access</a></li>
+  </ul>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg" id="heroBg">
+    <img src="A4.jpg" alt="100人のアーティスト展2026 メインビジュアル">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-bg-text" id="heroBgText">100</div>
+
+  <div class="hero-content">
+    <div class="hero-en" id="heroEn">100 ARTISTS EXHIBITION — 2026 SUMMER</div>
+    <h1 class="hero-title" id="heroTitle">
+      <span class="hero-title-line" id="htLine1">100人の</span>
+      <span class="hero-title-line" id="htLine2">アーティスト展</span>
+    </h1>
+    <p class="hero-catch" id="heroCatch">〜私の大事〜</p>
+    <div class="hero-meta" id="heroMeta">
+      <span>2026.8.1 SAT — 8.3 MON</span>
+      <span>10:00 — 20:00</span>
+      <span>ART BASE kmy / FUKUOKA</span>
+      <span>¥500 + 1 DRINK</span>
+    </div>
+    <div class="hero-ctas" id="heroCtas">
+      <a href="#access" class="btn btn-dark">来場する</a>
+      <a href="https://heartfelt-flan-65d0df.netlify.app/" class="btn btn-outline">協賛する</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll" id="heroScroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ===== INTRO ===== -->
+<section class="section-intro" id="about">
+  <div class="intro-accent-line" id="introLine"></div>
+  <div class="intro-counter" id="introCounter">100</div>
+  <div class="intro-text">
+    <p class="reveal">100人のアーティスト展は、<br>
+    誰もが<em>チャレンジ</em>できる場所、<br>
+    失敗が許される場所です。</p>
+    <br>
+    <p class="reveal">それを認め合える<br>
+    <em>優しい世界</em>として、<br>
+    審査や高額な出展料はなく、<br>
+    誰でもトライできる場所となっています。</p>
+    <br>
+    <p class="reveal">表現すること、<br>
+    好きなものを好きと言える<em>勇気</em>が<br>
+    集まったアート展です。</p>
+  </div>
+</section>
+
+<!-- ===== PEOPLE ===== -->
+<section class="section-people">
+
+  <!-- 子ども -->
+  <div class="people-row text-only" id="pr1">
+    <div class="people-text">
+      <div class="people-accent"></div>
+      <h3 class="people-title">子ども〜大人まで<br>参加できるアート展</h3>
+      <p class="people-body">
+        子どもは、迷わない。<br>
+        感じたまま、見たまま、<br>
+        キャンバスに向かう。<br>
+        その無邪気な強さを、この場所で見てほしい。
+      </p>
+    </div>
+  </div>
+
+  <!-- 障がいのある方 -->
+  <div class="people-row rev image-only" id="pr2">
+    <div class="people-img">
+      <div class="people-slider" id="peopleSlider" aria-label="100人のアーティスト展 作品スライド">
+        <img class="people-slide is-active" src="100LP画像/DSC09501_Original - hime kanna.jpeg" alt="100人のアーティスト展 作品 1" loading="lazy">
+        <img class="people-slide" src="100LP画像/IMG_4244 - 片山智裕.jpeg" alt="100人のアーティスト展 作品 2" loading="lazy">
+        <img class="people-slide" src="100LP画像/IMG_7955 - ちえこ.JPG" alt="100人のアーティスト展 作品 3" loading="lazy">
+        <img class="people-slide" src="100LP画像/IMG_8524 - a t.png" alt="100人のアーティスト展 作品 4" loading="lazy">
+        <img class="people-slide" src="100LP画像/b2cb2057-d141-4621-bafc-012d82b2bc50 (1).JPG" alt="100人のアーティスト展 作品 5" loading="lazy">
+        <img class="people-slide" src="100LP画像/f1c1b623-e402-47a0-b26c-1d5aa753a728-1_all_7432 - 江内優晴.png" alt="100人のアーティスト展 作品 6" loading="lazy">
+        <img class="people-slide" src="100LP画像/kizuna - Kayori Okuizumi.jpg" alt="100人のアーティスト展 作品 7" loading="lazy">
+        <img class="people-slide" src="100LP画像/名称未設定のアートワーク - yu ko.jpeg" alt="100人のアーティスト展 作品 8" loading="lazy">
+        <img class="people-slide" src="100LP画像/無題1_20260614112508_Original - satomi m.png" alt="100人のアーティスト展 作品 9" loading="lazy">
+      </div>
+    </div>
+  </div>
+
+  <!-- アーティスト -->
+  <div class="people-row text-only" id="pr3">
+    <div class="people-text">
+      <div class="people-accent"></div>
+      <h3 class="people-title">アートが誰かの心に<br>火を灯す。</h3>
+      <p class="people-body">
+        プロのアーティストが、<br>
+        子どもや障がいのある人たちと<br>
+        同じ空間に作品を置く。<br>
+        その並びにこそ、この展覧会の意味がある。
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ===== VANTAN COLLABORATION ===== -->
+<section class="section-vantan" id="vantan">
+  <div class="vantan-bg-word" id="vantanBg">VANTAN<br>KEY VISUAL<br>COMPETITION</div>
+  <div class="vantan-inner">
+    <div class="vantan-copy">
+      <div class="vantan-kicker reveal">COLLABORATION</div>
+      <h2 class="vantan-title reveal">キービジュアルは、<br>未来のクリエイターたちと。</h2>
+      <div class="vantan-body reveal">
+        <p>100人のアーティスト展 2026夏のキービジュアル制作には、<br>バンタンの生徒の皆さんが協力してくれました。</p>
+        <p>展覧会のテーマである<br>「私の大事」をもとに、</p>
+        <p>一人ひとりが感じた世界を、<br>ポスターとして表現。</p>
+        <p>完成したビジュアルだけでなく、<br>そこに至るまでのアイデア、<br>迷い、挑戦、選ばれなかった案にも、<br>この展覧会らしい表現が宿っています。</p>
+        <p>このキービジュアルは、<br>学生たちの感性と、<br>100人のアーティスト展の想いが重なって生まれたものです。</p>
+        <p class="vantan-note">この展覧会は、<br>作品を展示するだけでなく、<br>未来のクリエイターが、<br>社会とつながるきっかけにもなっています。</p>
+      </div>
+    </div>
+    <div class="vantan-collage" aria-label="バンタン キービジュアル制作風景">
+      <!-- 学校名・写真は後から差し替えやすいよう、キャプションとsrcを分けています -->
+      <figure class="vantan-photo is-competition">
+        <img src="バンタン/IMG_3424.jpg" alt="コンペ当日の写真" loading="lazy">
+        <figcaption>COMPETITION DAY</figcaption>
+      </figure>
+      <figure class="vantan-photo is-process">
+        <img src="バンタン/IMG_3427.jpg" alt="制作中の様子" loading="lazy">
+        <figcaption>MAKING PROCESS</figcaption>
+      </figure>
+      <figure class="vantan-photo is-review">
+        <img src="バンタン/IMG_3428.jpg" alt="生徒が作品を見せている写真" loading="lazy">
+        <figcaption>VISUAL REVIEW</figcaption>
+      </figure>
+      <figure class="vantan-photo is-keyvisual">
+        <img src="バンタン/IMG_3431.jpg" alt="採用されたキービジュアル" loading="lazy">
+        <figcaption>SELECTED VISUAL</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===== KURUKURU PROJECT ===== -->
+<section class="section-kurukuru" id="kurukuru">
+  <div class="kurukuru-wind" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="kurukuru-bg-word" id="kurukuruBg">ART for BEING</div>
+  <div class="kurukuru-inner">
+    <div class="kurukuru-copy">
+      <div class="kurukuru-kicker reveal">PROJECT</div>
+      <h2 class="kurukuru-title reveal">風は見えない。<br><br>でも、<br>そこにある。</h2>
+      <div class="kurukuru-lead reveal">
+        <p>100人のアーティスト展が<br>「表現すること」に光を当てる活動なら、</p>
+        <p>くるくるは、<br>「日常の中でアートを感じること」<br>を届けるプロジェクトです。</p>
+      </div>
+      <div class="kurukuru-body reveal">
+        <p>風を可視化するインテリアアート<br>「くるくる」。</p>
+        <p>風という目には見えない存在を、<br>ゆっくりと回る動きへ変え、</p>
+        <p>暮らしの中に、<br>穏やかな時間を生み出します。</p>
+        <p>この作品は、<br>障がいのあるアーティストと共に制作されています。</p>
+        <p>一つひとつ手作業で生まれる作品には、<br>それぞれ違う個性があり、<br>同じものは一つとしてありません。</p>
+        <p>私たちが届けたいのは、<br>作品そのものではなく、</p>
+        <p><strong>「表現には、誰にでも価値がある。」</strong></p>
+        <p>という考え方です。</p>
+        <p>100人のアーティスト展も、<br>くるくるも、</p>
+        <p>その想いから生まれています。</p>
+      </div>
+    </div>
+    <div class="kurukuru-gallery" aria-label="くるくるプロジェクト写真">
+      <!-- 写真差し替え: srcとfigcaptionを変更してください -->
+      <figure class="kurukuru-photo is-product">
+        <img src="kurukuru/kurukuru-color-02.jpg" alt="くるくる単体" loading="lazy">
+        <figcaption>KURUKURU</figcaption>
+      </figure>
+      <figure class="kurukuru-photo is-room">
+        <img src="kurukuru/kurukuru-room.png" alt="暮らしの中で飾られているくるくる" loading="lazy">
+        <figcaption>IN DAILY LIFE</figcaption>
+      </figure>
+      <figure class="kurukuru-photo is-artist">
+        <img src="kurukuru/kurukuru-artist.jpg" alt="障がいのあるアーティストとの制作風景" loading="lazy">
+        <figcaption>WITH ARTIST</figcaption>
+      </figure>
+      <figure class="kurukuru-photo is-people">
+        <img src="kurukuru/kurukuru-people.jpg" alt="制作に関わる人たち" loading="lazy">
+        <figcaption>ART for BEING</figcaption>
+      </figure>
+    </div>
+  </div>
+  <div class="kurukuru-final">
+    <p class="reveal">表現は、<br>人をつなぐ。</p>
+  </div>
+</section>
+
+<!-- ===== ART JOURNEY ===== -->
+<section class="section-journey" id="journey">
+  <div class="journey-bg-word" id="journeyBg">NEXT</div>
+  <div class="journey-grid">
+    <div class="journey-visual">
+      <div class="journey-kicker reveal">AFTER EXHIBITION</div>
+      <h2 class="journey-title reveal">100人のアートは、<br>ここで終わりません。</h2>
+      <div class="journey-photo-field">
+        <!-- 画像差し替え: srcを展示先ごとの写真に変更してください -->
+        <figure class="journey-photo is-base">
+          <img src="IMG_1524 4.PNG" alt="ART BASE展示" loading="lazy">
+          <figcaption>ART BASE</figcaption>
+        </figure>
+        <figure class="journey-photo is-tsutaya">
+          <img src="129773-127-9e8da27482c21072d846410d2a30c09c-1024x576.webp" alt="蔦屋展示" loading="lazy">
+          <figcaption>蔦屋書店</figcaption>
+        </figure>
+        <figure class="journey-photo is-prince">
+          <img src="a98b1120712ae2558c294773114e59b3-2.webp" alt="プリンスホテル展示" loading="lazy">
+          <figcaption>PRINCE HOTEL ももち浜</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="journey-copy">
+      <h2 class="mask-line">100人のアーティスト展は<br>3日間だけでは終わらない。</h2>
+      <p>100人のアーティスト展終了後、<br>作品はONE BUILDING内の蔦屋書店、<br>そしてプリンスホテルももち浜へ展示されます。</p>
+      <p>本を探しに来た人。<br>旅の途中で立ち寄った人。<br>偶然その場を訪れた人。</p>
+      <p>あなたの大事を見て、<br>「当たり前」のものに気づき、<br>それは今「有るもの」に目を向ける<br>きっかけになります。</p>
+      <p>作品は展示会場を飛び出し、<br>街の中へ旅を続けます。</p>
+      <div class="journey-timeline" id="journeyTimeline">
+        <div class="journey-line"></div>
+        <div class="journey-line-fill" id="journeyLineFill"></div>
+        <div class="journey-step">ART BASE</div>
+        <div class="journey-step">TSUTAYA<small>8月4日〜8月31日</small></div>
+        <div class="journey-step">PRINCE HOTEL<small>9月〜</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 100 UNITY ===== -->
+<section class="section-unity" id="unity">
+  <div class="unity-pin" id="unityPin">
+    <div class="unity-bg-number" id="unityNumber">100</div>
+    <div class="unity-inner">
+      <div class="unity-copy">
+        <div class="unity-kicker reveal">ONE WORK</div>
+        <h2 class="unity-title reveal">100人で、<br>一つの作品になる。</h2>
+        <div class="unity-body reveal">
+          <p><strong>100人それぞれの<br>「大事なもの」。</strong></p>
+          <p>その想いを、<br>透明なアクリルブロックへ。</p>
+          <p>一人では生まれない景色があります。<br>100人だからこそ、完成する作品があります。</p>
+          <p>違う価値観。<br>違う人生。<br>違う表現。</p>
+          <p>その違いが、<br>一つの作品になります。</p>
+          <p>展示会が終わっても、<br>この作品は未来へ残り続けます。</p>
+        </div>
+      </div>
+      <div class="acrylic-stage" aria-label="100個のアクリルブロック作品">
+        <figure class="unity-installation-photo">
+          <img src="IMG_1524 4.PNG" alt="100人の大事なもの 展示作品" loading="lazy">
+        </figure>
+        <div class="acrylic-grid" id="acrylicGrid"></div>
+      </div>
+    </div>
+    <div class="unity-finale" id="unityFinale">
+      <p>100人の作品。<br>一つのアート。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY ===== -->
+<section class="section-why">
+  <div class="why-bg-text" id="whyBg">ART</div>
+  <div class="why-inner">
+    <div class="why-text">
+      <p class="reveal">誰かの表現が、<br><strong>誰かの勇気になることがあります。</strong></p>
+      <p class="reveal">子どもが描いた一枚に、<br>大人が立ち止まることがあります。</p>
+      <p class="reveal">言葉にできなかった想いが、絵になった瞬間、<br>誰かに届くことがあります。</p>
+      <p class="reveal big">この展覧会は、<br>そんな<strong>小さな奇跡</strong>が<br>生まれる場所です。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPONSOR ===== -->
+<section class="section-sponsor" id="sponsor">
+  <div class="sponsor-num">SUPPORT</div>
+  <h2 class="sponsor-heading reveal">
+    この展覧会を、<br>一緒につくる人を<br>募集しています。
+  </h2>
+  <div class="sponsor-line" id="sponsorLine"></div>
+  <div class="sponsor-body reveal">
+    <p>協賛金は、子どもたちや障がいのある方々の出展サポート、<br>
+    展示空間づくり、広報、運営費として大切に使わせていただきます。</p>
+    <br>
+    <p>企業名を載せるためだけの協賛ではなく、<br>
+    地域に表現の場を残していくための<strong>参加</strong>です。</p>
+  </div>
+  <div class="sponsor-benefits reveal">
+    <span class="benefit-tag">会場での協賛名掲載</span>
+    <span class="benefit-tag">LP・告知物へのお名前掲載</span>
+    <span class="benefit-tag">SNSでのご紹介</span>
+    <span class="benefit-tag">活動報告の共有</span>
+  </div>
+  <a href="https://heartfelt-flan-65d0df.netlify.app/" class="btn btn-red reveal">協賛について相談する</a>
+</section>
+
+<!-- ===== ACCESS ===== -->
+<section class="section-access" id="access">
+  <div class="access-label">ACCESS</div>
+  <h2 class="access-heading reveal">
+    この夏、<br><em>100人</em>の表現に<br>会いに来てください。
+  </h2>
+  <div class="access-layout">
+    <dl class="access-dl">
+      <dt>Venue</dt>
+      <dd class="reveal">ART BASE kmy</dd>
+      <dt>Address</dt>
+      <dd class="reveal">〒812-0027<br>福岡市博多区神屋町4-2</dd>
+      <dt>Date</dt>
+      <dd class="reveal">2026年8月1日（土）〜8月3日（月）</dd>
+      <dt>Hours</dt>
+      <dd class="reveal">8/1・8/2　10:00 — 20:00<br>8/3（最終日）10:00 — 18:00</dd>
+      <dt>Admission</dt>
+      <dd class="reveal">500円（1ドリンク付き）<br>当日券のみ</dd>
+    </dl>
+    <div class="access-map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3323.2126089446897!2d130.40124707532337!3d33.59978764148647!2m3!1f0!2f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35419184b21de4f7%3A0x2d4a4c666b8494fe!2sART%20BASE%20KMY%20%7C%20Fukuoka%20Art%20Gallery%20%7C%20More%20than%201%2C000%20artworks%20to%20view%20and%20purchase%20in%20person!5e0!3m2!1sja!2sjp!4v1782962896584!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="section-final" id="contact">
+  <div class="final-bg" id="finalBg">SUMMER 2026</div>
+  <div class="final-inner">
+    <h2 class="final-heading reveal">
+      100人の表現が、<br>街にあふれ出す。
+    </h2>
+    <div class="final-meta reveal">
+      <p>2026年8月1日（土）〜8月3日（月）<br>
+      ART BASE kmy｜福岡市博多区神屋町4-2<br>
+      入場料 500円 / 1ドリンク付き / 当日券のみ</p>
+    </div>
+    <div class="final-ctas">
+      <a href="#access" class="btn btn-white reveal">来場する</a>
+      <a href="https://heartfelt-flan-65d0df.netlify.app/" class="btn btn-outline-white reveal">協賛について問い合わせる</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-logo">100 ARTISTS EXHIBITION 2026 SUMMER</div>
+  <p class="footer-copy">Art for BEING</p>
+</footer>
+
+<script>
+/* ===================================================
+  CURSOR
+=================================================== */
+const cursor = document.getElementById('cursor');
+let cx = 0, cy = 0;
+document.addEventListener('mousemove', e => {
+  cx = e.clientX; cy = e.clientY;
+  cursor.style.left = cx + 'px';
+  cursor.style.top  = cy + 'px';
+});
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+});
+
+/* ===================================================
+  100 ACRYLIC BLOCKS
+  画像追加・差し替えはこの配列にsrcを追加してください
+=================================================== */
+const acrylicImages = [
+  'images/gallery-01.jpg',
+  'images/gallery-02.jpg',
+  'images/gallery-03.jpg',
+  'images/gallery-04.jpg',
+  'images/gallery-05.jpg',
+  'images/gallery-06.jpg',
+  'images/gallery-07.jpg',
+  'images/gallery-08.jpg',
+  'images/gallery-09.jpg',
+  'images/work-01.jpg',
+  'images/work-02.jpg',
+  'images/work-03.jpg',
+  'images/work-04.jpg',
+  'images/work-05.jpg',
+  'images/child-03.jpg',
+  'images/child-04.jpg'
+];
+
+function buildAcrylicBlocks() {
+  const grid = document.getElementById('acrylicGrid');
+  if (!grid) return;
+  grid.innerHTML = Array.from({ length: 100 }, (_, i) => {
+    const src = acrylicImages[i % acrylicImages.length];
+    return `<div class="acrylic-block"><img src="${src}" alt="アクリルブロック作品 ${i + 1}" loading="lazy"></div>`;
+  }).join('');
+}
+
+function initPeopleSlider() {
+  const slides = Array.from(document.querySelectorAll('#peopleSlider .people-slide'));
+  if (slides.length < 2) return;
+  let current = 0;
+  setInterval(() => {
+    slides[current].classList.remove('is-active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('is-active');
+  }, 3600);
+}
+
+/* ===================================================
+  GSAP ANIMATIONS
+=================================================== */
+function initGSAP() {
+  if (typeof gsap === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero: タイトルラインが下から出る
+  gsap.to(['#htLine1','#htLine2'], {
+    y: 0,
+    stagger: 0.12,
+    duration: 1.1,
+    ease: 'power3.out',
+    delay: 0.3
+  });
+
+  // Hero: その他フェードイン
+  gsap.to(['#heroEn','#heroCatch','#heroMeta','#heroCtas','#heroScroll'], {
+    opacity: 1,
+    y: 0,
+    stagger: 0.12,
+    duration: 0.9,
+    ease: 'power2.out',
+    delay: 0.8
+  });
+
+  // Hero bg parallax
+  gsap.to('#heroBg img', {
+    yPercent: 20,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true
+    }
+  });
+
+  // Hero 巨大背景テキスト パララックス
+  gsap.to('#heroBgText', {
+    xPercent: -8,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: 1
+    }
+  });
+
+  // タイトルがスクロールで横にずれる
+  gsap.to('#heroTitle', {
+    x: -40,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: 1
+    }
+  });
+
+  // INTRO: 100 カウンターが横スクロール
+  gsap.fromTo('#introCounter',
+    { x: -80, opacity: 0 },
+    {
+      x: 0, opacity: 1,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '#introCounter',
+        start: 'top 80%',
+        end: 'top 20%',
+        scrub: 0.5
+      }
+    }
+  );
+
+  // Intro accent line
+  gsap.to('#introLine', {
+    width: '120px',
+    ease: 'power2.out',
+    scrollTrigger: {
+      trigger: '.section-intro',
+      start: 'top 70%',
+      once: true
+    }
+  });
+
+  // Vantan collaboration: 背景文字と写真コラージュ
+  gsap.to('#vantanBg', {
+    xPercent: 16,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.section-vantan',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: 1.2
+    }
+  });
+
+  gsap.utils.toArray('.vantan-photo').forEach((photo, i) => {
+    gsap.fromTo(photo,
+      { y: 90, x: i % 2 === 0 ? -48 : 48, opacity: 0 },
+      {
+        y: 0,
+        x: 0,
+        opacity: 1,
+        duration: 1.1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: photo,
+          start: 'top 84%',
+          once: true
+        }
+      }
+    );
+    gsap.to(photo.querySelector('img'), {
+      scale: 1.16,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: photo,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.2
+      }
+    });
+  });
+
+  // Kurukuru: 風を感じる静かな動き
+  gsap.to('#kurukuruBg', {
+    xPercent: -12,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.section-kurukuru',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: 1.2
+    }
+  });
+
+  gsap.utils.toArray('.kurukuru-wind span').forEach((line, i) => {
+    gsap.to(line, {
+      x: '150vw',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.section-kurukuru',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.4 + i * .3
+      }
+    });
+  });
+
+  gsap.utils.toArray('.kurukuru-photo').forEach((photo, i) => {
+    gsap.fromTo(photo,
+      { y: 70, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: photo,
+          start: 'top 84%',
+          once: true
+        }
+      }
+    );
+    gsap.to(photo, {
+      y: i % 2 === 0 ? -30 : 30,
+      rotate: i % 2 === 0 ? '+=2' : '-=2',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.section-kurukuru',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.5
+      }
+    });
+    gsap.to(photo.querySelector('img'), {
+      scale: 1.13,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: photo,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.2
+      }
+    });
+  });
+
+  // Journey: 背景文字がゆっくり旅をする
+  gsap.to('#journeyBg', {
+    xPercent: 18,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.section-journey',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: 1.2
+    }
+  });
+
+  // Journey: 写真が重なりながら滑る
+  gsap.utils.toArray('.journey-photo').forEach((photo, i) => {
+    gsap.fromTo(photo,
+      { x: i % 2 === 0 ? -90 : 90, y: 70, rotate: i === 1 ? 2 : -1 },
+      {
+        x: 0,
+        y: 0,
+        rotate: 0,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: photo,
+          start: 'top 86%',
+          end: 'top 35%',
+          scrub: .8
+        }
+      }
+    );
+    gsap.to(photo.querySelector('img'), {
+      scale: 1.2,
+      yPercent: i === 1 ? -8 : 8,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: photo,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.4
+      }
+    });
+  });
+
+  gsap.fromTo('.journey-copy h2, .journey-copy p',
+    { y: 46, clipPath: 'inset(0 0 100% 0)' },
+    {
+      y: 0,
+      clipPath: 'inset(0 0 0% 0)',
+      stagger: .12,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.journey-copy',
+        start: 'top 76%',
+        once: true
+      }
+    }
+  );
+
+  gsap.to('#journeyLineFill', {
+    height: '100%',
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#journeyTimeline',
+      start: 'top 72%',
+      end: 'bottom 42%',
+      scrub: true
+    }
+  });
+
+  gsap.utils.toArray('.journey-step').forEach(step => {
+    ScrollTrigger.create({
+      trigger: step,
+      start: 'top 62%',
+      end: 'bottom 42%',
+      toggleClass: { targets: step, className: 'is-active' }
+    });
+  });
+
+  // Unity: 100が消え、その奥から100個の作品が現れる
+  const unityTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.section-unity',
+      start: 'top top',
+      end: '+=180%',
+      scrub: 1,
+      pin: '#unityPin'
+    }
+  });
+  unityTl
+    .to('#unityNumber', { opacity: 0, scale: 1.08, ease: 'none' }, 0)
+    .fromTo('.unity-installation-photo',
+      { opacity: 0, y: 90, scale: .92, filter: 'brightness(1)' },
+      { opacity: 1, y: 0, scale: 1, filter: 'brightness(.86)', ease: 'power2.out' },
+      .06
+    )
+    .fromTo('.acrylic-grid',
+      { opacity: .08, y: 120, scale: .9, rotate: -5 },
+      { opacity: .38, y: 0, scale: 1, rotate: -2, ease: 'power2.out' },
+      .14
+    )
+    .fromTo('.acrylic-block',
+      { y: 70, scale: .72, rotate: () => gsap.utils.random(-6, 6) },
+      { y: 0, scale: 1, rotate: 0, stagger: { amount: .65, grid: [10, 10], from: 'center' }, ease: 'power3.out' },
+      .16
+    )
+    .to('.unity-copy', { y: -80, opacity: 0, ease: 'power2.inOut' }, .62)
+    .to('.unity-installation-photo', { scale: .9, opacity: .42, filter: 'brightness(.35)', ease: 'power2.inOut' }, .66)
+    .to('.acrylic-grid', { scale: .82, opacity: .16, filter: 'brightness(.45)', ease: 'power2.inOut' }, .68)
+    .to('#unityFinale', { backgroundColor: 'rgba(17,17,17,.88)', ease: 'none' }, .72)
+    .to('#unityFinale p', { opacity: 1, y: 0, ease: 'power3.out' }, .76);
+
+  // Why パララックス
+  gsap.to('#whyBg', {
+    xPercent: 10,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.section-why',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: 1
+    }
+  });
+
+  // Final CTA background text
+  gsap.to('#finalBg', {
+    xPercent: -6,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.section-final',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: 1
+    }
+  });
+
+  // Sponsor line
+  ScrollTrigger.create({
+    trigger: '#sponsorLine',
+    start: 'top 75%',
+    once: true,
+    onEnter: () => document.getElementById('sponsorLine').classList.add('visible')
+  });
+
+  // People rows: accent bar
+  ['pr1','pr2','pr3'].forEach(id => {
+    ScrollTrigger.create({
+      trigger: '#'+id,
+      start: 'top 60%',
+      once: true,
+      onEnter: () => document.getElementById(id).classList.add('in-view')
+    });
+  });
+}
+
+/* ===================================================
+  IntersectionObserver (フォールバック reveal)
+=================================================== */
+function initReveal() {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => io.observe(el));
+}
+
+/* ===================================================
+  Nav opacity on scroll
+=================================================== */
+function initNav() {
+  const nav = document.querySelector('.nav');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    // hero内 = mix-blend-mode:difference で白テキスト
+    // hero後 = 通常のナビ
+  }, { passive: true });
+}
+
+/* ===================================================
+  INIT
+=================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  buildAcrylicBlocks();
+  initPeopleSlider();
+  initReveal();
+  initGSAP();
+  initNav();
+});
+</script>
+</body>
+</html>
